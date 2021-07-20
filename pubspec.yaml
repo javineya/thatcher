@@ -1,0 +1,41 @@
+name: thatcher
+description: A choose-your-own-adventure story of magic and mystery.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.3
+  google_fonts: ^2.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  fonts:
+    - family: CrimsonText
+      fonts:
+        - asset: fonts/CrimsonText-Regular.ttf
+        - asset: fonts/CrimsonText-Bold.ttf
+        - asset: fonts/CrimsonText-Italic.ttf
+        - asset: fonts/CrimsonText-BoldItalic.ttf
+        - asset: fonts/CrimsonText-SemiBold.ttf
+        - asset: fonts/CrimsonText-SemiBoldItalic.ttf
+    - family: Merriweather
+      fonts:
+        - asset: fonts/Merriweather-Black.ttf
+        - asset: fonts/Merriweather-Bold.ttf
+        - asset: fonts/Merriweather-BlackItalic.ttf
+        - asset: fonts/Merriweather-BoldItalic.ttf
+        - asset: fonts/Merriweather-Italic.ttf
+        - asset: fonts/Merriweather-Light.ttf
+        - asset: fonts/Merriweather-LightItalic.ttf
+        - asset: fonts/Merriweather-Regular.ttf
