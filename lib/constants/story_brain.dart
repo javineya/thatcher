@@ -749,7 +749,6 @@ List<StoryPage> _storyData = [
     nextPageID: [0],
   ), // 4 >> 0
 ];
-// TODO: Keep on stylin' those pages!
 
 class StoryBrain {
   // ------------------------------------------------ //
@@ -771,6 +770,10 @@ class StoryBrain {
   }
 
   // ----------      PAGE VIEW             ---------- //
+  int getSavedPage() {
+    return _storyRecap.last;
+  }
+
   List getPageContents() {
     List pageContents = _storyData[_pageIndex].pageContents;
 
@@ -800,20 +803,20 @@ class StoryBrain {
   }
 
   // ----------      SITUATIONS            ---------- //
-  /*
-  *
-  * */
   Map<String, int> _allSituations = {
     'gameInProgress': 0,
     'testSituation': 4,
   };
+  Set<String> _userSituations = {};
 
-  int getSavedPage() {
-    return _storyRecap.last;
+  void addIfSituation() {
+    if (_storyData[_pageIndex].addSituation != null) {
+      _userSituations.add(_storyData[_pageIndex].addSituation!);
+    }
   }
 
   bool checkSituation() {
-    return _storyData[_pageIndex].addSituation == null ? false : true;
+    return false;
   }
 
   int getSituationIndex(situation) {

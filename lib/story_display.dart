@@ -78,6 +78,7 @@ class _StoryPageState extends State<StoryPage> {
                                             .position.minScrollExtent,
                                         duration: Duration(milliseconds: 100),
                                         curve: Curves.fastOutSlowIn);
+                                    storyBrain.addIfSituation();
                                     storyBrain.nextPage(index);
                                     storyBrain.buildRecap();
                                     storyBrain.getPageContents();
