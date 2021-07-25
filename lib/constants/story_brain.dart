@@ -665,37 +665,37 @@ List<StoryPage> _storyData = [
     nextPageID: [3, 2],
   ), // 1 >> 2, 3
   StoryPage(
-    location: '',
-    arcTitle: 'Prologue',
-    pageContents: [
-      Container(
-          child: RichText(
-        text: TextSpan(
-          text: '-Narration!-\n'
-              '\n',
-          style: kTextNarration,
-          children: <TextSpan>[
-            TextSpan(text: 'Bullshit! ', style: kTextLoud),
-            TextSpan(
-              text: 'More Text.\n\n',
-              style: kTextBody,
-            ),
-            TextSpan(
-              text: '-Narration style!-\n\n',
-              style: kTextNarration,
-            ),
-            TextSpan(
-              text: 'Talking, talking.',
-              style: kTextBody,
-            ),
-          ],
-        ),
-      ))
-    ],
-    choices: ['Choice'],
-    nextPageID: [3],
-    addSituation: 'testSituation',
-  ), // 2 >> 3 !4
+      location: '',
+      arcTitle: 'Prologue',
+      pageContents: [
+        Container(
+            child: RichText(
+          text: TextSpan(
+            text: '-Narration!-\n'
+                '\n',
+            style: kTextNarration,
+            children: <TextSpan>[
+              TextSpan(text: 'Bullshit! ', style: kTextLoud),
+              TextSpan(
+                text: 'More Text.\n\n',
+                style: kTextBody,
+              ),
+              TextSpan(
+                text: '-Narration style!-\n\n',
+                style: kTextNarration,
+              ),
+              TextSpan(
+                text: 'Talking, talking.',
+                style: kTextBody,
+              ),
+            ],
+          ),
+        ))
+      ],
+      choices: ['Choice'],
+      nextPageID: [3],
+      addSituation: 'testSituation',
+      checkSituation: 'testSituation'), // 2 >> 3 !4
   StoryPage(
     location: '',
     arcTitle: 'Prologue',
@@ -815,10 +815,6 @@ class StoryBrain {
     }
   }
 
-  bool checkSituation() {
-    return false;
-  }
-
   int getSituationIndex(situation) {
     int situationIndex = _allSituations[situation]!;
 
@@ -826,11 +822,12 @@ class StoryBrain {
   }
 
   // Get index for next Page in all situations
-  // TODO: make situation for recap on "Continue"
+  // TODO: REMEMBER: situation checks come BEFORE the new page.
   void nextPage(int nextPageIndex) {
-    if (checkSituation()) {
-      String? situation = _storyData[_pageIndex].addSituation;
-      _pageIndex = getSituationIndex(situation);
+    if (_storyData[_pageIndex].checkSituation != null) {
+      String situation = _storyData[_pageIndex].checkSituation!;
+      int situationIndex = _allSituations[situation]!;
+      _pageIndex = situationIndex;
     } else {
       _pageIndex = _storyData[_pageIndex].nextPageID[nextPageIndex];
     }

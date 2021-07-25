@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constants/constants.dart';
 import 'constants/story_brain.dart';
@@ -13,6 +14,37 @@ class _StoryPageState extends State<StoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // TODO: style and work up this drawer
+      drawerScrimColor: Colors.black.withOpacity(0.5),
+      drawerEdgeDragWidth: 25.0,
+      drawer: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.black.withOpacity(0.75),
+        ),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.25,
+          child: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(child: SizedBox()),
+                ListTile(
+                  title: Icon(Icons.settings, color: Colors.white),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  title: Icon(Icons.restart_alt_outlined, color: Colors.white),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Colors.grey[900],
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
