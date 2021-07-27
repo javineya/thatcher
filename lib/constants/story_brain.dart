@@ -639,9 +639,11 @@ List<StoryPage> _storyData = [
         ),
       ))
     ],
-    choices: ['Continue', 'Start New'],
-    nextPageID: [1, 1],
-  ), // 0 >> 1
+    choices: ['Continue'],
+    addSituation: 'gameInProgress',
+    checkSituation: 'gameInProgress',
+    nextPageID: [1],
+  ), // 0 >> 1, 5
   StoryPage(
     location: '',
     arcTitle: 'Prologue',
@@ -748,6 +750,27 @@ List<StoryPage> _storyData = [
     choices: ['Restart'],
     nextPageID: [0],
   ), // 4 >> 0
+  StoryPage(
+    location: '',
+    arcTitle: 'Continue Button Test!',
+    pageContents: [
+      Container(
+          child: RichText(
+        text: TextSpan(
+          text: 'If you did it right, you will see this page.-\n\n',
+          style: kTextNarration,
+          children: <TextSpan>[
+            TextSpan(
+              text: 'Excellent! Now keep working!',
+              style: kTextTerminal,
+            ),
+          ],
+        ),
+      ))
+    ],
+    choices: ['Restart'],
+    nextPageID: [0],
+  ), // 5 >> 0
 ];
 
 class StoryBrain {
@@ -803,11 +826,12 @@ class StoryBrain {
   }
 
   // ----------      SITUATIONS            ---------- //
-  Map<String, int> _allSituations = {
-    'gameInProgress': 0,
-    'testSituation': 4,
-  };
   Set<String> _userSituations = {};
+  void resetGame() {
+    _userSituations = {};
+    _storyRecap = {0};
+    _pageIndex = 0;
+  }
 
   void addIfSituation() {
     if (_storyData[_pageIndex].addSituation != null) {
@@ -816,9 +840,22 @@ class StoryBrain {
   }
 
   int getSituationIndex(situation) {
-    int situationIndex = _allSituations[situation]!;
+    switch (situation) {
+      case "gameInProgress":
+        {
+          return _storyRecap.length == 1 ? 1 : _storyRecap.last;
+        }
 
-    return situationIndex;
+      case "testSituation":
+        {
+          return 5;
+        }
+
+      default:
+        {
+          return 0;
+        }
+    }
   }
 
   // Get index for next Page in all situations
@@ -826,8 +863,7 @@ class StoryBrain {
   void nextPage(int nextPageIndex) {
     if (_storyData[_pageIndex].checkSituation != null) {
       String situation = _storyData[_pageIndex].checkSituation!;
-      int situationIndex = _allSituations[situation]!;
-      _pageIndex = situationIndex;
+      _pageIndex = getSituationIndex(situation);
     } else {
       _pageIndex = _storyData[_pageIndex].nextPageID[nextPageIndex];
     }
@@ -839,6 +875,10 @@ class StoryBrain {
   void buildRecap() {
     // Add cellText to storyRecap List and remove duplicates
     _storyRecap.add(_pageIndex);
+  }
+
+  int getProgressPage() {
+    return _storyRecap.last;
   }
   // TODO: add swipe pagination to recap
 }

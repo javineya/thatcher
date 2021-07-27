@@ -11,40 +11,168 @@ class StoryPage extends StatefulWidget {
 }
 
 class _StoryPageState extends State<StoryPage> {
+  String userDominantHand = 'left';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // TODO: style and work up this drawer
       drawerScrimColor: Colors.black.withOpacity(0.5),
       drawerEdgeDragWidth: 25.0,
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.black.withOpacity(0.75),
-        ),
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.25,
-          child: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                DrawerHeader(child: SizedBox()),
-                ListTile(
-                  title: Icon(Icons.settings, color: Colors.white),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+      endDrawer: userDominantHand != 'right'
+          ? Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.black.withOpacity(0.75),
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      DrawerHeader(child: SizedBox()),
+                      ListTile(
+                        title: Icon(Icons.settings, color: Colors.white),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Icon(Icons.restart_alt_outlined,
+                            color: Colors.white),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Icon(Icons.delete_outline, color: Colors.white),
+                        onTap: () => showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.1)),
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32.0))),
+                              backgroundColor: Colors.black,
+                              title: Text('Warning!',
+                                  style: kTextLoud,
+                                  textAlign: TextAlign.center),
+                              content: Text('This will erase all progress.',
+                                  style: kTextBody,
+                                  textAlign: TextAlign.center),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: Text('Cancel', style: kTextChoice),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        _scrollController.animateTo(
+                                            _scrollController
+                                                .position.minScrollExtent,
+                                            duration:
+                                                Duration(milliseconds: 100),
+                                            curve: Curves.fastOutSlowIn);
+                                        storyBrain.resetGame();
+                                      },
+                                    );
+                                    Navigator.pop(context, 'Erase');
+                                  },
+                                  child: Text('Erase', style: kTextChoice),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                ListTile(
-                  title: Icon(Icons.restart_alt_outlined, color: Colors.white),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              ),
+            )
+          : null,
+      drawer: userDominantHand == 'right'
+          ? Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.black.withOpacity(0.75),
+              ),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: Drawer(
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      DrawerHeader(child: SizedBox()),
+                      ListTile(
+                        title: Icon(Icons.settings, color: Colors.white),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Icon(Icons.restart_alt_outlined,
+                            color: Colors.white),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ListTile(
+                        title: Icon(Icons.delete_outline, color: Colors.white),
+                        onTap: () => showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => Container(
+                            decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(0.1)),
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32.0))),
+                              backgroundColor: Colors.black,
+                              title: Text('Warning!',
+                                  style: kTextLoud,
+                                  textAlign: TextAlign.center),
+                              content: Text('This will erase all progress.',
+                                  style: kTextBody,
+                                  textAlign: TextAlign.center),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(context, 'Cancel'),
+                                  child: Text('Cancel', style: kTextChoice),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    setState(
+                                      () {
+                                        _scrollController.animateTo(
+                                            _scrollController
+                                                .position.minScrollExtent,
+                                            duration:
+                                                Duration(milliseconds: 100),
+                                            curve: Curves.fastOutSlowIn);
+                                        storyBrain.resetGame();
+                                      },
+                                    );
+                                    Navigator.pop(context, 'Erase');
+                                  },
+                                  child: Text('Erase', style: kTextChoice),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
+              ),
+            )
+          : null,
       backgroundColor: Colors.grey[900],
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
@@ -82,10 +210,14 @@ class _StoryPageState extends State<StoryPage> {
                 Divider(),
                 Container(
                   height: 250.0,
-                  alignment: Alignment.centerRight,
+                  alignment: userDominantHand == 'right'
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Directionality(
                     // TODO: Create option for user to choose L or R hand
-                    textDirection: TextDirection.rtl,
+                    textDirection: userDominantHand == 'right'
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
                     child: GridView.count(
                       physics: NeverScrollableScrollPhysics(),
                       childAspectRatio: (5 / 2),

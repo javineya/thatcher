@@ -32,6 +32,7 @@ TextStyle kTextChoice = TextStyle(
 );
 TextStyle kTextLoud = TextStyle(
   fontSize: 25,
+  color: Colors.white,
   fontStyle: FontStyle.italic,
   fontWeight: FontWeight.bold,
   fontFamily: 'CrimsonText',
