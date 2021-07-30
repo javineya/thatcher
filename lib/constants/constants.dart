@@ -1,5 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../pages/story_route.dart';
+import '../pages/settings_route.dart';
+import '../pages/recap_route.dart';
+
+// ----------            ROUTES             ---------- //
+Map<String, WidgetBuilder> kRoutes = {
+  '/': (context) => StoryRoute(),
+  '/settings': (context) => SettingsRoute(),
+  '/recap': (context) => RecapRoute()
+};
 
 // ----------         TEXT STYLES           ---------- //
 TextStyle kTextAppTitle = TextStyle(

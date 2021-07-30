@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'constants/constants.dart';
-import 'constants/story_brain.dart';
+import '../constants/constants.dart';
+import '../constants/story_brain.dart';
 
 ScrollController _scrollController = ScrollController();
 StoryBrain storyBrain = StoryBrain();
 
-class StoryPage extends StatefulWidget {
-  _StoryPageState createState() => _StoryPageState();
+class StoryRoute extends StatefulWidget {
+  _StoryRouteState createState() => _StoryRouteState();
 }
 // TODO: Build Settings page as a route
 // TODO: Build Recap page as a route
 
-class _StoryPageState extends State<StoryPage> {
+class _StoryRouteState extends State<StoryRoute> {
   String userDominantHand = 'right';
   // put the drawer into a variable to account for left/right hand
   late final Drawer myDrawer = Drawer(
