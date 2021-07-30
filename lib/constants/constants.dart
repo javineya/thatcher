@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ----------         TEXT STYLES           ---------- //
 TextStyle kTextAppTitle = TextStyle(
   fontFamily: 'CrimsonText',
   fontSize: 60,
@@ -46,3 +47,9 @@ TextStyle kTextTerminal = TextStyle(
   fontWeight: FontWeight.normal,
   fontFamily: 'Merriweather',
 );
+
+// ----------      SPACING & SIZING         ---------- //
+const kSpacingDrawer = EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0);
+const kSizeDrawerIcon = 40.0;
+
+// ----------           COLORS              ---------- //

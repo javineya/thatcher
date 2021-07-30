@@ -9,90 +9,101 @@ StoryBrain storyBrain = StoryBrain();
 class StoryPage extends StatefulWidget {
   _StoryPageState createState() => _StoryPageState();
 }
+// TODO: Build Settings page as a route
+// TODO: Build Recap page as a route
 
 class _StoryPageState extends State<StoryPage> {
-  String userDominantHand = 'left';
+  String userDominantHand = 'right';
+  // put the drawer into a variable to account for left/right hand
+  late final Drawer myDrawer = Drawer(
+    child: ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        DrawerHeader(child: SizedBox()),
+        ListTile(
+          title: Padding(
+            padding: kSpacingDrawer,
+            child: Icon(Icons.settings_outlined,
+                color: Colors.white60, size: kSizeDrawerIcon),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Padding(
+            padding: kSpacingDrawer,
+            child: Icon(Icons.book_outlined,
+                color: Colors.white60, size: kSizeDrawerIcon),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: Padding(
+            padding: kSpacingDrawer,
+            child: Icon(Icons.delete_outline,
+                color: Colors.white60, size: kSizeDrawerIcon),
+          ),
+          onTap: () => showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => Container(
+              decoration: BoxDecoration(
+                color: Color(0x2f0000).withOpacity(0.7),
+              ),
+              child: AlertDialog(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                backgroundColor: Colors.black,
+                title: Text('Warning!',
+                    style: kTextLoud, textAlign: TextAlign.center),
+                content: Text('This will erase all progress.',
+                    style: kTextBody, textAlign: TextAlign.center),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: Text('Cancel', style: kTextChoice),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(
+                        () {
+                          _scrollController.animateTo(
+                              _scrollController.position.minScrollExtent,
+                              duration: Duration(milliseconds: 100),
+                              curve: Curves.fastOutSlowIn);
+                          storyBrain.resetGame();
+                        },
+                      );
+                      Navigator.pop(context, 'Erase');
+                    },
+                    child: Text('Erase', style: kTextChoice),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )
+      ],
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: style and work up this drawer
       drawerScrimColor: Colors.black.withOpacity(0.5),
       drawerEdgeDragWidth: 25.0,
-      endDrawer: userDominantHand != 'right'
+      endDrawer: userDominantHand == 'left'
           ? Theme(
               data: Theme.of(context).copyWith(
-                canvasColor: Colors.black.withOpacity(0.75),
+                canvasColor: Colors.black,
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.25,
-                child: Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      DrawerHeader(child: SizedBox()),
-                      ListTile(
-                        title: Icon(Icons.settings, color: Colors.white),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        title: Icon(Icons.restart_alt_outlined,
-                            color: Colors.white),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        title: Icon(Icons.delete_outline, color: Colors.white),
-                        onTap: () => showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(0.1)),
-                            child: AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(32.0))),
-                              backgroundColor: Colors.black,
-                              title: Text('Warning!',
-                                  style: kTextLoud,
-                                  textAlign: TextAlign.center),
-                              content: Text('This will erase all progress.',
-                                  style: kTextBody,
-                                  textAlign: TextAlign.center),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: Text('Cancel', style: kTextChoice),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _scrollController.animateTo(
-                                            _scrollController
-                                                .position.minScrollExtent,
-                                            duration:
-                                                Duration(milliseconds: 100),
-                                            curve: Curves.fastOutSlowIn);
-                                        storyBrain.resetGame();
-                                      },
-                                    );
-                                    Navigator.pop(context, 'Erase');
-                                  },
-                                  child: Text('Erase', style: kTextChoice),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                child: myDrawer,
               ),
             )
           : null,
@@ -103,73 +114,7 @@ class _StoryPageState extends State<StoryPage> {
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.25,
-                child: Drawer(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      DrawerHeader(child: SizedBox()),
-                      ListTile(
-                        title: Icon(Icons.settings, color: Colors.white),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        title: Icon(Icons.restart_alt_outlined,
-                            color: Colors.white),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        title: Icon(Icons.delete_outline, color: Colors.white),
-                        onTap: () => showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => Container(
-                            decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(0.1)),
-                            child: AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(32.0))),
-                              backgroundColor: Colors.black,
-                              title: Text('Warning!',
-                                  style: kTextLoud,
-                                  textAlign: TextAlign.center),
-                              content: Text('This will erase all progress.',
-                                  style: kTextBody,
-                                  textAlign: TextAlign.center),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: Text('Cancel', style: kTextChoice),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    setState(
-                                      () {
-                                        _scrollController.animateTo(
-                                            _scrollController
-                                                .position.minScrollExtent,
-                                            duration:
-                                                Duration(milliseconds: 100),
-                                            curve: Curves.fastOutSlowIn);
-                                        storyBrain.resetGame();
-                                      },
-                                    );
-                                    Navigator.pop(context, 'Erase');
-                                  },
-                                  child: Text('Erase', style: kTextChoice),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                child: myDrawer,
               ),
             )
           : null,
