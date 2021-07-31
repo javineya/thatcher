@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart';
 import '../constants/story_brain.dart';
 
-ScrollController _scrollController = ScrollController();
 StoryBrain storyBrain = StoryBrain();
 
 class StoryRoute extends StatefulWidget {
   _StoryRouteState createState() => _StoryRouteState();
 }
-// TODO: Build Settings page as a route
-// TODO: Build Recap page as a route
+// TODO: function-up settings route
+// TODO: function-up recap route
+// TODO: learn about provider for data persistence
 
 class _StoryRouteState extends State<StoryRoute> {
+  final ScrollController _scrollController = ScrollController();
   String userDominantHand = 'right';
   // put the drawer into a variable to account for left/right hand
+  // TODO: style page animations (don't like the route animation)
   late final Drawer myDrawer = Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
@@ -27,7 +29,8 @@ class _StoryRouteState extends State<StoryRoute> {
                 color: Colors.white60, size: kSizeDrawerIcon),
           ),
           onTap: () {
-            Navigator.pop(context);
+            print('Clicked settings button!');
+            Navigator.pushNamed(context, '/settings');
           },
         ),
         ListTile(
@@ -37,7 +40,7 @@ class _StoryRouteState extends State<StoryRoute> {
                 color: Colors.white60, size: kSizeDrawerIcon),
           ),
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/recap');
           },
         ),
         ListTile(

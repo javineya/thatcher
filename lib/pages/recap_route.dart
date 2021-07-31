@@ -1,13 +1,56 @@
 import 'package:flutter/material.dart';
+import '../constants/story_brain.dart';
+import '../constants/constants.dart';
+
+StoryBrain storyBrain = StoryBrain();
 
 class RecapRoute extends StatelessWidget {
-  const RecapRoute({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(children: [
-      Text('Recap works!'),
-    ]));
+    return Scaffold(
+      body: Container(
+        color: Colors.grey[900],
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                children: [
+                  Center(
+                      child: Container(
+                          child: Text('Testing One!', style: kTextTitle))),
+                  Center(
+                      child: Container(
+                          child: Text('Testing Two!', style: kTextTitle))),
+                  Center(
+                      child: Container(
+                          child: Text('Testing Three!', style: kTextTitle))),
+                  Center(
+                      child: Container(
+                          child: Text('Testing Four!', style: kTextTitle)))
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  heroTag: 'btn1',
+                  onPressed: () {
+                    storyBrain.getRecap();
+                  },
+                ),
+                FloatingActionButton(
+                  heroTag: 'btn2',
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                )
+              ],
+            ),
+            SizedBox(height: 16)
+          ],
+        ),
+      ),
+    );
   }
 }

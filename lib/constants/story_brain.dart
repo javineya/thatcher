@@ -873,12 +873,14 @@ class StoryBrain {
   Set<int> _storyRecap = {0};
   // Adds to recap Set in order
   void buildRecap() {
-    // Add cellText to storyRecap List and remove duplicates
     _storyRecap.add(_pageIndex);
+  }
+
+  void getRecap() {
+    print(_storyRecap);
   }
 
   int getProgressPage() {
     return _storyRecap.last;
   }
-  // TODO: add swipe pagination to recap
 }
