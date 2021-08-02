@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'story_page.dart';
 import 'constants.dart';
 
+//region Story Data
 // Bring this back later.
 // List<StoryPage> _storyData = [
 //   // The Intro contains one optional side portion
@@ -613,8 +615,10 @@ import 'constants.dart';
 //     choices: ['Restart'],
 //     nextPageID: [1],
 //   ) // 19 >> 1
-// ];
-// Practice Data for building. Keep it simple!
+// ]
+//endregion
+
+//region TEST DATA
 List<StoryPage> _storyData = [
   StoryPage(
     location: '',
@@ -772,14 +776,12 @@ List<StoryPage> _storyData = [
     nextPageID: [0],
   ), // 5 >> 0
 ];
+//endregion
 
 class StoryBrain {
-  // ------------------------------------------------ //
-  // ----------      STORY PROGRESS        ---------- //
-  // ------------------------------------------------ //
   int _pageIndex = 0;
 
-  // ----------      INFOBAR               ---------- //
+  //region INFOBAR METHODS
   String getLocation() {
     return _storyData[_pageIndex].location;
   }
@@ -791,8 +793,9 @@ class StoryBrain {
   String getCurrentPage() {
     return _pageIndex > 0 ? _pageIndex.toString() : '';
   }
+  //endregion
 
-  // ----------      PAGE VIEW             ---------- //
+  //region      PAGE VIEW METHODS
   int getSavedPage() {
     return _storyRecap.last;
   }
@@ -824,8 +827,9 @@ class StoryBrain {
   List getNextCellIDs() {
     return _storyData[_pageIndex].nextPageID;
   }
+  //endregion METHODS
 
-  // ----------      SITUATIONS            ---------- //
+  //region GAME METHODS
   Set<String> _userSituations = {};
   void resetGame() {
     _userSituations = {};
@@ -883,4 +887,28 @@ class StoryBrain {
   int getProgressPage() {
     return _storyRecap.last;
   }
+  //endregion
+
+  //region SETTINGS METHODS
+  bool _userRightHanded = true;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<void> setUserRightHanded(bool rightHanded) async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool('rightHandedUser', rightHanded);
+  }
+
+  void userRightHanded(rightHanded) {
+    _userRightHanded = rightHanded;
+  }
+
+  Future<bool> getUserRightHanded() async {
+    final SharedPreferences prefs = await _prefs;
+    bool rightHandedUser = prefs.getBool('rightHandedUser')!;
+    return rightHandedUser;
+  }
+
+  // TODO: add support for dark/light mode
+  //endregion
 }

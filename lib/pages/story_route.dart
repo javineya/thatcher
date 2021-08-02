@@ -1,21 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/constants.dart';
 import '../constants/story_brain.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
+setDefaultPreferences() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setBool('rightHandedUser', true);
+}
+
 class StoryRoute extends StatefulWidget {
   _StoryRouteState createState() => _StoryRouteState();
 }
+
 // TODO: function-up settings route
 // TODO: function-up recap route
 // TODO: learn about provider for data persistence
 
 class _StoryRouteState extends State<StoryRoute> {
   final ScrollController _scrollController = ScrollController();
-  String userDominantHand = 'right';
-  // put the drawer into a variable to account for left/right hand
+
   // TODO: style page animations (don't like the route animation)
   late final Drawer myDrawer = Drawer(
     child: ListView(
@@ -95,11 +101,17 @@ class _StoryRouteState extends State<StoryRoute> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    setDefaultPreferences();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawerScrimColor: Colors.black.withOpacity(0.5),
       drawerEdgeDragWidth: 25.0,
-      endDrawer: userDominantHand == 'left'
+      endDrawer: storyBrain.getUserRightHanded() == false
           ? Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: Colors.black,
@@ -110,7 +122,7 @@ class _StoryRouteState extends State<StoryRoute> {
               ),
             )
           : null,
-      drawer: userDominantHand == 'right'
+      drawer: storyBrain.getUserRightHanded() == true
           ? Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: Colors.black.withOpacity(0.75),
@@ -158,12 +170,12 @@ class _StoryRouteState extends State<StoryRoute> {
                 Divider(),
                 Container(
                   height: 250.0,
-                  alignment: userDominantHand == 'right'
+                  alignment: storyBrain.getUserRightHanded() == true
                       ? Alignment.centerRight
                       : Alignment.centerLeft,
                   child: Directionality(
                     // TODO: Create option for user to choose L or R hand
-                    textDirection: userDominantHand == 'right'
+                    textDirection: storyBrain.getUserRightHanded() == true
                         ? TextDirection.rtl
                         : TextDirection.ltr,
                     child: GridView.count(

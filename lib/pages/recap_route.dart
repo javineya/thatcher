@@ -15,6 +15,7 @@ class RecapRoute extends StatelessWidget {
             Expanded(
               child: PageView(
                 children: [
+                  // TODO: get recap indices and wire this up proper-like
                   Center(
                       child: Container(
                           child: Text('Testing One!', style: kTextTitle))),
@@ -33,6 +34,7 @@ class RecapRoute extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                // TODO: wire these up to do actual things
                 FloatingActionButton(
                   heroTag: 'btn1',
                   onPressed: () {
