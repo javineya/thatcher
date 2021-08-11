@@ -1,33 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import '../constants/constants.dart';
 import '../constants/story_brain.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
-setDefaultPreferences() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  prefs.setBool('rightHandedUser', true);
-}
-
 class StoryRoute extends StatefulWidget {
   _StoryRouteState createState() => _StoryRouteState();
 }
 
-// TODO: function-up settings route
-// TODO: function-up recap route
-// TODO: learn about provider for data persistence
-
 class _StoryRouteState extends State<StoryRoute> {
+  //region INITIAL SETTINGS
   final ScrollController _scrollController = ScrollController();
-
-  // TODO: style page animations (don't like the route animation)
+  late Box prefsBox;
+  late bool _rightHandedUser = true;
   late final Drawer myDrawer = Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        DrawerHeader(child: SizedBox()),
+        DrawerHeader(
+            child: Container(
+          child: IconButton(
+            icon: Icon(Icons.info_outline, color: Colors.white60),
+            onPressed: () {
+              Navigator.pushNamed(context, '/info');
+            },
+          ),
+        )),
         ListTile(
           title: Padding(
             padding: kSpacingDrawer,
@@ -35,7 +36,6 @@ class _StoryRouteState extends State<StoryRoute> {
                 color: Colors.white60, size: kSizeDrawerIcon),
           ),
           onTap: () {
-            print('Clicked settings button!');
             Navigator.pushNamed(context, '/settings');
           },
         ),
@@ -103,15 +103,24 @@ class _StoryRouteState extends State<StoryRoute> {
   @override
   void initState() {
     super.initState();
-    setDefaultPreferences();
+    prefsBox = Hive.box("preferences");
+    _getPrefs();
   }
+
+  void _getPrefs() async {
+    final prefs = await prefsBox.get("rightHandedUser") ?? true;
+    setState(() {
+      _rightHandedUser = prefs;
+    });
+  }
+  //endregion
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawerScrimColor: Colors.black.withOpacity(0.5),
       drawerEdgeDragWidth: 25.0,
-      endDrawer: storyBrain.getUserRightHanded() == false
+      endDrawer: _rightHandedUser == false
           ? Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: Colors.black,
@@ -122,7 +131,7 @@ class _StoryRouteState extends State<StoryRoute> {
               ),
             )
           : null,
-      drawer: storyBrain.getUserRightHanded() == true
+      drawer: _rightHandedUser == true
           ? Theme(
               data: Theme.of(context).copyWith(
                 canvasColor: Colors.black.withOpacity(0.75),
@@ -170,12 +179,12 @@ class _StoryRouteState extends State<StoryRoute> {
                 Divider(),
                 Container(
                   height: 250.0,
-                  alignment: storyBrain.getUserRightHanded() == true
+                  alignment: _rightHandedUser == true
                       ? Alignment.centerRight
                       : Alignment.centerLeft,
                   child: Directionality(
                     // TODO: Create option for user to choose L or R hand
-                    textDirection: storyBrain.getUserRightHanded() == true
+                    textDirection: _rightHandedUser == true
                         ? TextDirection.rtl
                         : TextDirection.ltr,
                     child: GridView.count(

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import '../pages/story_route.dart';
 import '../pages/settings_route.dart';
 import '../pages/recap_route.dart';
+import '../pages/info_route.dart';
 
 // ----------            ROUTES             ---------- //
 Map<String, WidgetBuilder> kRoutes = {
   '/': (context) => StoryRoute(),
   '/settings': (context) => SettingsRoute(),
-  '/recap': (context) => RecapRoute()
+  '/recap': (context) => RecapRoute(),
+  '/info': (context) => InfoRoute()
 };
 
-// ----------         TEXT STYLES           ---------- //
+//region TEXT STYLES
 TextStyle kTextAppTitle = TextStyle(
   fontFamily: 'CrimsonText',
   fontSize: 60,
@@ -57,9 +59,9 @@ TextStyle kTextTerminal = TextStyle(
   fontWeight: FontWeight.normal,
   fontFamily: 'Merriweather',
 );
+//endregion
 
-// ----------      SPACING & SIZING         ---------- //
+//region SIZING STYLES
 const kSpacingDrawer = EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0);
 const kSizeDrawerIcon = 40.0;
-
-// ----------           COLORS              ---------- //
+//endregion

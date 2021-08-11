@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'story_page.dart';
 import 'constants.dart';
 
@@ -890,22 +891,14 @@ class StoryBrain {
   //endregion
 
   //region SETTINGS METHODS
-  bool _userRightHanded = true;
+  Box prefsBox = Hive.box("preferences");
 
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  Future<void> setUserRightHanded(bool rightHanded) async {
-    final SharedPreferences prefs = await _prefs;
-    prefs.setBool('rightHandedUser', rightHanded);
-  }
-
-  void userRightHanded(rightHanded) {
-    _userRightHanded = rightHanded;
+  void setUserRightHanded(bool rightHanded) async {
+    prefsBox.put("rightHandedUser", rightHanded);
   }
 
   Future<bool> getUserRightHanded() async {
-    final SharedPreferences prefs = await _prefs;
-    bool rightHandedUser = prefs.getBool('rightHandedUser')!;
+    bool rightHandedUser = prefsBox.get(["rightHanded"]);
     return rightHandedUser;
   }
 
