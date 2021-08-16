@@ -17,45 +17,67 @@ class _SettingsRouteState extends State<SettingsRoute> {
   StoryBrain storyBrain = StoryBrain();
   late Box prefsBox;
   bool _rightHandedUser = true;
-  List<bool> _isSelected = [false, false];
+  bool _darkMode = true;
+  List<bool> _isSelectedHand = [false, false];
+  List<bool> _isSelectedMode = [false, false];
 
   //region  INITIAL SETTINGS
   void initState() {
     super.initState();
     prefsBox = Hive.box("preferences");
     _getInitPrefs();
+    print('settings_route has fired');
   }
 
+  // these three methods are needed so the active toggle button matches the
+  // user's saved setting
   void _getInitPrefs() async {
-    final prefs = await prefsBox.get("rightHandedUser") ?? true;
+    final handPrefs = await prefsBox.get("rightHandedUser") ?? true;
+    final modePrefs = await prefsBox.get("darkMode") ?? true;
+
     setState(() {
-      _rightHandedUser = prefs;
+      _rightHandedUser = handPrefs;
+      _darkMode = modePrefs;
     });
-    _setIsSelected();
+    _setIsSelectedHand();
+    _setIsSelectedMode();
   }
 
-  void _setIsSelected() {
+  void _setIsSelectedHand() {
     _rightHandedUser == true
-        ? _isSelected = [false, true]
-        : _isSelected = [true, false];
+        ? _isSelectedHand = [false, true]
+        : _isSelectedHand = [true, false];
   }
+
+  void _setIsSelectedMode() {
+    _darkMode == true
+        ? _isSelectedMode = [false, true]
+        : _isSelectedMode = [true, false];
+  }
+
   //endregion
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: _darkMode == true ? kDarkBG : kLightBG,
       body: Container(
         constraints: BoxConstraints.expand(),
-        color: Colors.grey[900],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Container(
+              child: Text('Choose Dominant Hand',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: _darkMode == true ? kDarkText : kLightText)),
+            ),
             ToggleButtons(
+              color: kNeutralButton,
               fillColor: Colors.transparent,
               highlightColor: Colors.transparent,
               renderBorder: false,
               children: [
-                // TODO: change these to icons later
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Transform(
@@ -73,32 +95,69 @@ class _SettingsRouteState extends State<SettingsRoute> {
                 setState(
                   () {
                     for (int buttonIndex = 0;
-                        buttonIndex < _isSelected.length;
+                        buttonIndex < _isSelectedHand.length;
                         buttonIndex++) {
                       buttonIndex == index
-                          ? _isSelected[buttonIndex] = true
-                          : _isSelected[buttonIndex] = false;
+                          ? _isSelectedHand[buttonIndex] = true
+                          : _isSelectedHand[buttonIndex] = false;
                     }
-                    _isSelected[0] == true
+                    _isSelectedHand[0] == true
                         ? storyBrain.setUserRightHanded(false)
                         : storyBrain.setUserRightHanded(true);
                   },
                 );
               },
-              isSelected: _isSelected,
+              isSelected: _isSelectedHand,
             ),
             Container(
               child: Text(
-                'This will flip the interface to be more '
-                'comfortable for left-handed users.',
-                style: kTextBody,
-                textAlign: TextAlign.center,
-              ),
+                  'WARNING: Dark/Light change is an example. '
+                  '\n\nTo apply changes, app must be restarted.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: _darkMode == true ? kDarkText : kLightText)),
+            ),
+            ToggleButtons(
+              color: kNeutralButton,
+              fillColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              renderBorder: false,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FaIcon(FontAwesomeIcons.sun, size: 90.0),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: FaIcon(FontAwesomeIcons.moon, size: 90.0),
+                ),
+              ],
+              onPressed: (int index) {
+                setState(
+                  () {
+                    for (int buttonIndex = 0;
+                        buttonIndex < _isSelectedMode.length;
+                        buttonIndex++) {
+                      buttonIndex == index
+                          ? _isSelectedMode[buttonIndex] = true
+                          : _isSelectedMode[buttonIndex] = false;
+                    }
+                    if (_isSelectedMode[0] == true) {
+                      storyBrain.setUserMode(false);
+                      _darkMode = false;
+                    } else {
+                      storyBrain.setUserMode(true);
+                      _darkMode = true;
+                    }
+                  },
+                );
+              },
+              isSelected: _isSelectedMode,
             ),
             FloatingActionButton(
                 child: Icon(Icons.arrow_back_outlined),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pop(context);
                 })
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import '../constants/constants.dart';
 import '../constants/story_brain.dart';
 
+// TODO: FEATURE! Choice Tracker to improve replayability
 StoryBrain storyBrain = StoryBrain();
 
 class StoryRoute extends StatefulWidget {
@@ -16,6 +17,7 @@ class _StoryRouteState extends State<StoryRoute> {
   final ScrollController _scrollController = ScrollController();
   late Box prefsBox;
   late bool _rightHandedUser = true;
+  late bool _darkMode = true;
   late final Drawer myDrawer = Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
@@ -23,7 +25,9 @@ class _StoryRouteState extends State<StoryRoute> {
         DrawerHeader(
             child: Container(
           child: IconButton(
-            icon: Icon(Icons.info_outline, color: Colors.white60),
+            icon: Icon(
+              Icons.info_outline,
+            ),
             onPressed: () {
               Navigator.pushNamed(context, '/info');
             },
@@ -32,8 +36,7 @@ class _StoryRouteState extends State<StoryRoute> {
         ListTile(
           title: Padding(
             padding: kSpacingDrawer,
-            child: Icon(Icons.settings_outlined,
-                color: Colors.white60, size: kSizeDrawerIcon),
+            child: Icon(Icons.settings_outlined, size: kSizeDrawerIcon),
           ),
           onTap: () {
             Navigator.pushNamed(context, '/settings');
@@ -42,8 +45,7 @@ class _StoryRouteState extends State<StoryRoute> {
         ListTile(
           title: Padding(
             padding: kSpacingDrawer,
-            child: Icon(Icons.book_outlined,
-                color: Colors.white60, size: kSizeDrawerIcon),
+            child: Icon(Icons.book_outlined, size: kSizeDrawerIcon),
           ),
           onTap: () {
             Navigator.pushNamed(context, '/recap');
@@ -52,8 +54,7 @@ class _StoryRouteState extends State<StoryRoute> {
         ListTile(
           title: Padding(
             padding: kSpacingDrawer,
-            child: Icon(Icons.delete_outline,
-                color: Colors.white60, size: kSizeDrawerIcon),
+            child: Icon(Icons.delete_outline, size: kSizeDrawerIcon),
           ),
           onTap: () => showDialog<String>(
             context: context,
@@ -67,14 +68,15 @@ class _StoryRouteState extends State<StoryRoute> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 backgroundColor: Colors.black,
-                title: Text('Warning!',
-                    style: kTextLoud, textAlign: TextAlign.center),
+                title: Text('Warning!', textAlign: TextAlign.center),
                 content: Text('This will erase all progress.',
-                    style: kTextBody, textAlign: TextAlign.center),
+                    textAlign: TextAlign.center),
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: Text('Cancel', style: kTextChoice),
+                    child: Text(
+                      'Cancel',
+                    ),
                   ),
                   TextButton(
                     onPressed: () {
@@ -89,7 +91,9 @@ class _StoryRouteState extends State<StoryRoute> {
                       );
                       Navigator.pop(context, 'Erase');
                     },
-                    child: Text('Erase', style: kTextChoice),
+                    child: Text(
+                      'Erase',
+                    ),
                   ),
                 ],
               ),
@@ -105,12 +109,15 @@ class _StoryRouteState extends State<StoryRoute> {
     super.initState();
     prefsBox = Hive.box("preferences");
     _getPrefs();
+    print('story_route.dart has fired');
   }
 
   void _getPrefs() async {
-    final prefs = await prefsBox.get("rightHandedUser") ?? true;
+    final handPrefs = await prefsBox.get("rightHandedUser") ?? true;
+    final modePrefs = await prefsBox.get("darkMode") ?? true;
     setState(() {
-      _rightHandedUser = prefs;
+      _rightHandedUser = handPrefs;
+      _darkMode = modePrefs;
     });
   }
   //endregion
@@ -118,13 +125,10 @@ class _StoryRouteState extends State<StoryRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawerScrimColor: Colors.black.withOpacity(0.5),
       drawerEdgeDragWidth: 25.0,
       endDrawer: _rightHandedUser == false
           ? Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.black,
-              ),
+              data: Theme.of(context).copyWith(),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: myDrawer,
@@ -133,16 +137,13 @@ class _StoryRouteState extends State<StoryRoute> {
           : null,
       drawer: _rightHandedUser == true
           ? Theme(
-              data: Theme.of(context).copyWith(
-                canvasColor: Colors.black.withOpacity(0.75),
-              ),
+              data: Theme.of(context).copyWith(),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: myDrawer,
               ),
             )
           : null,
-      backgroundColor: Colors.grey[900],
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
         constraints: BoxConstraints.expand(),
@@ -158,14 +159,15 @@ class _StoryRouteState extends State<StoryRoute> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(storyBrain.getLocation(), style: kTextInfoBar),
-                      Text(storyBrain.getArcTitle(), style: kTextInfoBar),
-                      Text(storyBrain.getCurrentPage(), style: kTextInfoBar),
+                      Text(storyBrain.getLocation()),
+                      Text(storyBrain.getArcTitle()),
+                      Text(storyBrain.getCurrentPage()),
                     ],
                   ),
                 ), // InfoBar
                 Divider(),
                 Container(
+                  // STORYPAGE
                   child: Column(
                     children: List.generate(
                       storyBrain.getPageContents().length,
@@ -202,7 +204,7 @@ class _StoryRouteState extends State<StoryRoute> {
                           return Container(
                             alignment: Alignment.center,
                             child: TextButton(
-                              child: Text(choices[index], style: kTextChoice),
+                              child: Text(choices[index]),
                               onPressed: () {
                                 setState(
                                   () {
@@ -211,10 +213,7 @@ class _StoryRouteState extends State<StoryRoute> {
                                             .position.minScrollExtent,
                                         duration: Duration(milliseconds: 100),
                                         curve: Curves.fastOutSlowIn);
-                                    storyBrain.addIfSituation();
-                                    storyBrain.nextPage(index);
-                                    storyBrain.buildRecap();
-                                    storyBrain.getPageContents();
+                                    storyBrain.turnPage(index);
                                   },
                                 );
                               },

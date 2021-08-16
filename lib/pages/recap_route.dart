@@ -4,6 +4,8 @@ import '../constants/constants.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
+// TODO: MAKE THIS THING WORK
+
 class RecapRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -16,18 +18,10 @@ class RecapRoute extends StatelessWidget {
               child: PageView(
                 children: [
                   // TODO: get recap indices and wire this up proper-like
-                  Center(
-                      child: Container(
-                          child: Text('Testing One!', style: kTextTitle))),
-                  Center(
-                      child: Container(
-                          child: Text('Testing Two!', style: kTextTitle))),
-                  Center(
-                      child: Container(
-                          child: Text('Testing Three!', style: kTextTitle))),
-                  Center(
-                      child: Container(
-                          child: Text('Testing Four!', style: kTextTitle)))
+                  Center(child: Container(child: Text('Testing One!'))),
+                  Center(child: Container(child: Text('Testing Two!'))),
+                  Center(child: Container(child: Text('Testing Three!'))),
+                  Center(child: Container(child: Text('Testing Four!')))
                 ],
               ),
             ),
@@ -38,7 +32,7 @@ class RecapRoute extends StatelessWidget {
                 FloatingActionButton(
                   heroTag: 'btn1',
                   onPressed: () {
-                    storyBrain.getRecap();
+                    storyBrain.setRecap();
                   },
                 ),
                 FloatingActionButton(

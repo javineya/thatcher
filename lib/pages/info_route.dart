@@ -21,7 +21,6 @@ class InfoRoute extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     text: 'Credits\n\n',
-                    style: kTextLoud,
                     children: <TextSpan>[TextSpan(text: 'More info later.')],
                   ),
                 ),

@@ -626,23 +626,17 @@ List<StoryPage> _storyData = [
     arcTitle: '',
     pageContents: [
       Container(
-          child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          text: 'Test Data\n\n',
-          style: kTextAppTitle,
-          children: <TextSpan>[
-            TextSpan(
-              text: 'Subtitle Text\n\n',
-              style: kTextNarration,
-            ),
-            TextSpan(
-              text: 'by JesterVae',
-              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20),
-            ),
-          ],
+        child: Text.rich(
+          TextSpan(
+            text: 'Test Data\n\n',
+            children: <TextSpan>[
+              TextSpan(text: 'Subtitle Text\n\n'),
+              TextSpan(text: 'by JesterVae'),
+            ],
+          ),
+          textAlign: TextAlign.center,
         ),
-      ))
+      )
     ],
     choices: ['Continue'],
     addSituation: 'gameInProgress',
@@ -654,19 +648,19 @@ List<StoryPage> _storyData = [
     arcTitle: 'Prologue',
     pageContents: [
       Container(
-          child: RichText(
-        text: TextSpan(
-          text: '“Title Text”\n More Title Text\n\n',
-          style: kTextTitle,
-          children: <TextSpan>[
+        child: Text.rich(
             TextSpan(
-              text: '\t\tIndent with 2 tabs? \n\t\t Newline 2 tabs for joined '
-                  'paragraph. \n\n\t\t 2 newlines 2 tabs for separated text.',
-              style: kTextBody,
+              text: '“Title Text”\n More Title Text\n\n',
+              children: <TextSpan>[
+                TextSpan(
+                  text:
+                      '\t\tIndent with 2 tabs? \n\t\t Newline 2 tabs for joined '
+                      'paragraph. \n\n\t\t 2 newlines 2 tabs for separated text.',
+                ),
+              ],
             ),
-          ],
-        ),
-      ))
+            textAlign: TextAlign.center),
+      )
     ],
     choices: ['Page 3', 'Page 2'],
     nextPageID: [3, 2],
@@ -676,28 +670,26 @@ List<StoryPage> _storyData = [
       arcTitle: 'Prologue',
       pageContents: [
         Container(
-            child: RichText(
-          text: TextSpan(
-            text: '-Narration!-\n'
-                '\n',
-            style: kTextNarration,
-            children: <TextSpan>[
-              TextSpan(text: 'Bullshit! ', style: kTextLoud),
-              TextSpan(
-                text: 'More Text.\n\n',
-                style: kTextBody,
-              ),
-              TextSpan(
-                text: '-Narration style!-\n\n',
-                style: kTextNarration,
-              ),
-              TextSpan(
-                text: 'Talking, talking.',
-                style: kTextBody,
-              ),
-            ],
+          child: Text.rich(
+            TextSpan(
+              text: '-Narration!-\n'
+                  '\n',
+              children: <TextSpan>[
+                TextSpan(text: 'Bullshit! '),
+                TextSpan(
+                  text: 'More Text.\n\n',
+                ),
+                TextSpan(
+                  text: '-Narration style!-\n\n',
+                ),
+                TextSpan(
+                  text: 'Talking, talking.',
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
           ),
-        ))
+        )
       ],
       choices: ['Choice'],
       nextPageID: [3],
@@ -710,8 +702,9 @@ List<StoryPage> _storyData = [
       Container(
         child: Column(
           children: [
-            Text('-You come to the end of the test data.-\n\n',
-                style: kTextNarration),
+            Text(
+              '-You come to the end of the test data.-\n\n',
+            ),
             Container(
               decoration: BoxDecoration(
                   color: Colors.blueGrey,
@@ -723,7 +716,6 @@ List<StoryPage> _storyData = [
                   'FR: theDeveloper@thatcher\n\n'
                   'SB: Figure Out Message Background\n\n'
                   'You want to have a message background. Make it work.',
-                  style: kTextTerminal,
                 ),
               ),
             )
@@ -739,18 +731,18 @@ List<StoryPage> _storyData = [
     arcTitle: 'Situation!',
     pageContents: [
       Container(
-          child: RichText(
-        text: TextSpan(
-          text: '-You successfully passed a situation!.-\n\n',
-          style: kTextNarration,
-          children: <TextSpan>[
-            TextSpan(
-              text: 'Now keep working!',
-              style: kTextTerminal,
-            ),
-          ],
+        child: Text.rich(
+          TextSpan(
+            text: '-You successfully passed a situation!.-\n\n',
+            children: <TextSpan>[
+              TextSpan(
+                text: 'Now keep working!',
+              ),
+            ],
+          ),
+          textAlign: TextAlign.center,
         ),
-      ))
+      )
     ],
     choices: ['Restart'],
     nextPageID: [0],
@@ -760,27 +752,30 @@ List<StoryPage> _storyData = [
     arcTitle: 'Continue Button Test!',
     pageContents: [
       Container(
-          child: RichText(
-        text: TextSpan(
-          text: 'If you did it right, you will see this page.-\n\n',
-          style: kTextNarration,
-          children: <TextSpan>[
-            TextSpan(
-              text: 'Excellent! Now keep working!',
-              style: kTextTerminal,
-            ),
-          ],
+        child: Text.rich(
+          TextSpan(
+            text: 'If you did it right, you will see this page.-\n\n',
+            children: <TextSpan>[
+              TextSpan(
+                text: 'Excellent! Now keep working!',
+              ),
+            ],
+          ),
+          textAlign: TextAlign.center,
         ),
-      ))
+      )
     ],
     choices: ['Restart'],
     nextPageID: [0],
   ), // 5 >> 0
 ];
+
 //endregion
 
 class StoryBrain {
   int _pageIndex = 0;
+  Box prefsBox = Hive.box("preferences");
+  Box userSavedBox = Hive.box("userSave");
 
   //region INFOBAR METHODS
   String getLocation() {
@@ -797,8 +792,15 @@ class StoryBrain {
   //endregion
 
   //region      PAGE VIEW METHODS
+  void turnPage(index) {
+    buildRecap();
+    addIfSituation();
+    setNextPageIndex(index);
+    getPageContents();
+  }
+
   int getSavedPage() {
-    return _storyRecap.last;
+    return storyRecap.last;
   }
 
   List getPageContents() {
@@ -816,8 +818,7 @@ class StoryBrain {
     List pageChoices = [];
 
     for (String choice in choices) {
-      Text choiceText =
-          Text(choice, textAlign: TextAlign.center, style: kTextBody);
+      Text choiceText = Text(choice, textAlign: TextAlign.center);
 
       pageChoices.add(choiceText);
     }
@@ -831,10 +832,14 @@ class StoryBrain {
   //endregion METHODS
 
   //region GAME METHODS
+  // TODO: save userSituations to Hive, can't load saved progress otherwise
+  void loadSavedGame() {}
+
   Set<String> _userSituations = {};
   void resetGame() {
     _userSituations = {};
-    _storyRecap = {0};
+    userSavedBox.clear();
+    storyRecap = {0};
     _pageIndex = 0;
   }
 
@@ -848,7 +853,7 @@ class StoryBrain {
     switch (situation) {
       case "gameInProgress":
         {
-          return _storyRecap.length == 1 ? 1 : _storyRecap.last;
+          return storyRecap.length == 1 ? 1 : storyRecap.last;
         }
 
       case "testSituation":
@@ -863,9 +868,8 @@ class StoryBrain {
     }
   }
 
-  // Get index for next Page in all situations
   // TODO: REMEMBER: situation checks come BEFORE the new page.
-  void nextPage(int nextPageIndex) {
+  void setNextPageIndex(int nextPageIndex) {
     if (_storyData[_pageIndex].checkSituation != null) {
       String situation = _storyData[_pageIndex].checkSituation!;
       _pageIndex = getSituationIndex(situation);
@@ -874,34 +878,34 @@ class StoryBrain {
     }
   }
 
-  // Build story for user's chosen path using Set (ignores duplicates)
-  Set<int> _storyRecap = {0};
-  // Adds to recap Set in order
+  Set<int> storyRecap = {0};
+
   void buildRecap() {
-    _storyRecap.add(_pageIndex);
+    storyRecap.add(_pageIndex);
+    List<int> recap = storyRecap.toList();
+    userSavedBox.put("recap", recap);
   }
 
-  void getRecap() {
-    print(_storyRecap);
-  }
-
-  int getProgressPage() {
-    return _storyRecap.last;
+  void setRecap() {
+    List<int> recap = userSavedBox.get("recap") ?? [0];
+    storyRecap = recap.toSet();
   }
   //endregion
 
   //region SETTINGS METHODS
-  Box prefsBox = Hive.box("preferences");
+  ValueNotifier<ThemeMode> getTheme() {
+    bool darkMode = prefsBox.get("darkMode");
+    return darkMode == true
+        ? ValueNotifier(ThemeMode.dark)
+        : ValueNotifier(ThemeMode.light);
+  }
 
-  void setUserRightHanded(bool rightHanded) async {
+  void setUserRightHanded(bool rightHanded) {
     prefsBox.put("rightHandedUser", rightHanded);
   }
 
-  Future<bool> getUserRightHanded() async {
-    bool rightHandedUser = prefsBox.get(["rightHanded"]);
-    return rightHandedUser;
+  void setUserMode(bool darkMode) {
+    prefsBox.put("darkMode", darkMode);
   }
-
-  // TODO: add support for dark/light mode
   //endregion
 }
