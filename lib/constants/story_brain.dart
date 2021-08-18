@@ -893,6 +893,8 @@ class StoryBrain {
   //endregion
 
   //region SETTINGS METHODS
+
+  // TODO move all this to app_brain
   ValueNotifier<ThemeMode> getTheme() {
     bool darkMode = prefsBox.get("darkMode");
     return darkMode == true

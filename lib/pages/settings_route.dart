@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 import '../constants/story_brain.dart';
 import '../constants/constants.dart';
+import '../constants/config.dart';
 
 class SettingsRoute extends StatefulWidget {
   const SettingsRoute({Key? key}) : super(key: key);
@@ -15,7 +14,6 @@ class SettingsRoute extends StatefulWidget {
 
 class _SettingsRouteState extends State<SettingsRoute> {
   StoryBrain storyBrain = StoryBrain();
-  late Box prefsBox;
   bool _rightHandedUser = true;
   bool _darkMode = true;
   List<bool> _isSelectedHand = [false, false];
@@ -24,21 +22,20 @@ class _SettingsRouteState extends State<SettingsRoute> {
   //region  INITIAL SETTINGS
   void initState() {
     super.initState();
-    prefsBox = Hive.box("preferences");
     _getInitPrefs();
-    print('settings_route has fired');
+    userHand.addListener(() {
+      if (mounted) {
+        setState(() {
+          _rightHandedUser = userHand.getUserHand();
+        });
+      }
+    });
   }
 
-  // these three methods are needed so the active toggle button matches the
-  // user's saved setting
   void _getInitPrefs() async {
-    final handPrefs = await prefsBox.get("rightHandedUser") ?? true;
-    final modePrefs = await prefsBox.get("darkMode") ?? true;
+    _rightHandedUser = userHand.getUserHand();
+    _darkMode = currentTheme.getTheme();
 
-    setState(() {
-      _rightHandedUser = handPrefs;
-      _darkMode = modePrefs;
-    });
     _setIsSelectedHand();
     _setIsSelectedMode();
   }
@@ -60,18 +57,12 @@ class _SettingsRouteState extends State<SettingsRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _darkMode == true ? kDarkBG : kLightBG,
       body: Container(
         constraints: BoxConstraints.expand(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              child: Text('Choose Dominant Hand',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: _darkMode == true ? kDarkText : kLightText)),
-            ),
+            SizedBox(height: 50),
             ToggleButtons(
               color: kNeutralButton,
               fillColor: Colors.transparent,
@@ -102,21 +93,13 @@ class _SettingsRouteState extends State<SettingsRoute> {
                           : _isSelectedHand[buttonIndex] = false;
                     }
                     _isSelectedHand[0] == true
-                        ? storyBrain.setUserRightHanded(false)
-                        : storyBrain.setUserRightHanded(true);
+                        ? userHand.setUserHand(false)
+                        : userHand.setUserHand(true);
                   },
                 );
               },
               isSelected: _isSelectedHand,
-            ),
-            Container(
-              child: Text(
-                  'WARNING: Dark/Light change is an example. '
-                  '\n\nTo apply changes, app must be restarted.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: _darkMode == true ? kDarkText : kLightText)),
-            ),
+            ), // UserHand
             ToggleButtons(
               color: kNeutralButton,
               fillColor: Colors.transparent,
@@ -133,32 +116,35 @@ class _SettingsRouteState extends State<SettingsRoute> {
                 ),
               ],
               onPressed: (int index) {
-                setState(
-                  () {
-                    for (int buttonIndex = 0;
-                        buttonIndex < _isSelectedMode.length;
-                        buttonIndex++) {
-                      buttonIndex == index
-                          ? _isSelectedMode[buttonIndex] = true
-                          : _isSelectedMode[buttonIndex] = false;
-                    }
-                    if (_isSelectedMode[0] == true) {
-                      storyBrain.setUserMode(false);
-                      _darkMode = false;
-                    } else {
-                      storyBrain.setUserMode(true);
-                      _darkMode = true;
-                    }
-                  },
-                );
+                setState(() {
+                  for (int buttonIndex = 0;
+                      buttonIndex < _isSelectedMode.length;
+                      buttonIndex++) {
+                    buttonIndex == index
+                        ? _isSelectedMode[buttonIndex] = true
+                        : _isSelectedMode[buttonIndex] = false;
+                  }
+                  _isSelectedMode[0] == true
+                      ? currentTheme.setTheme(false)
+                      : currentTheme.setTheme(true);
+                });
               },
               isSelected: _isSelectedMode,
-            ),
-            FloatingActionButton(
-                child: Icon(Icons.arrow_back_outlined),
-                onPressed: () {
-                  Navigator.pop(context);
-                })
+            ), // CurrentTheme
+            Row(
+              mainAxisAlignment: _rightHandedUser == true
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 40),
+                FloatingActionButton(
+                    child: Icon(Icons.arrow_back_outlined),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                SizedBox(width: 40),
+              ],
+            )
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/adapters.dart';
 import './constants/story_brain.dart';
 import './constants/constants.dart';
+import './constants/config.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
@@ -19,20 +20,31 @@ void main() async {
   print('main.dart has fired');
 }
 
-class Thatcher extends StatelessWidget {
+class Thatcher extends StatefulWidget {
+  const Thatcher({Key? key}) : super(key: key);
+
+  @override
+  _ThatcherState createState() => _ThatcherState();
+}
+
+class _ThatcherState extends State<Thatcher> {
+  @override
+  void initState() {
+    super.initState();
+    currentTheme.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<ThemeMode>(
-        valueListenable: storyBrain.getTheme(),
-        builder: (_, ThemeMode currentMode, __) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: kThemeLight,
-            darkTheme: kThemeDark,
-            themeMode: currentMode,
-            initialRoute: '/',
-            routes: kRoutes,
-          );
-        });
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: kThemeLight,
+      darkTheme: kThemeDark,
+      themeMode: currentTheme.currentTheme(),
+      initialRoute: '/',
+      routes: kRoutes,
+    );
   }
 }
