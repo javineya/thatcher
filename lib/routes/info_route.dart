@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/constants.dart';
+import '../resources/constants.dart';
 
 class InfoRoute extends StatelessWidget {
   const InfoRoute({Key? key}) : super(key: key);

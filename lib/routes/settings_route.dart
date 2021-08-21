@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
-import '../constants/story_brain.dart';
-import '../constants/constants.dart';
-import '../constants/config.dart';
+import '../config/story_brain.dart';
+import '../resources/constants.dart';
+import '../config/config.dart';
 
 class SettingsRoute extends StatefulWidget {
   const SettingsRoute({Key? key}) : super(key: key);
@@ -26,14 +26,14 @@ class _SettingsRouteState extends State<SettingsRoute> {
     userHand.addListener(() {
       if (mounted) {
         setState(() {
-          _rightHandedUser = userHand.getUserHand();
+          _rightHandedUser = userHand.getHand();
         });
       }
     });
   }
 
   void _getInitPrefs() async {
-    _rightHandedUser = userHand.getUserHand();
+    _rightHandedUser = userHand.getHand();
     _darkMode = currentTheme.getTheme();
 
     _setIsSelectedHand();
@@ -93,8 +93,8 @@ class _SettingsRouteState extends State<SettingsRoute> {
                           : _isSelectedHand[buttonIndex] = false;
                     }
                     _isSelectedHand[0] == true
-                        ? userHand.setUserHand(false)
-                        : userHand.setUserHand(true);
+                        ? userHand.setHand(false)
+                        : userHand.setHand(true);
                   },
                 );
               },

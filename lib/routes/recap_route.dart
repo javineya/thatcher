@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../constants/story_brain.dart';
-import '../constants/constants.dart';
+import '../config/story_brain.dart';
+import '../resources/constants.dart';
 
 StoryBrain storyBrain = StoryBrain();
 

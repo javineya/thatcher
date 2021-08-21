@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/adapters.dart';
-import './constants/story_brain.dart';
-import './constants/constants.dart';
-import './constants/config.dart';
+import './config/story_brain.dart';
+import 'resources/constants.dart';
+import './config/config.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
@@ -17,7 +17,6 @@ void main() async {
   await Hive.openBox("userSave");
   storyBrain.setRecap();
   runApp(Thatcher());
-  print('main.dart has fired');
 }
 
 class Thatcher extends StatefulWidget {
@@ -42,7 +41,7 @@ class _ThatcherState extends State<Thatcher> {
       debugShowCheckedModeBanner: false,
       theme: kThemeLight,
       darkTheme: kThemeDark,
-      themeMode: currentTheme.currentTheme(),
+      themeMode: currentTheme.getTheme() ? ThemeMode.dark : ThemeMode.light,
       initialRoute: '/',
       routes: kRoutes,
     );

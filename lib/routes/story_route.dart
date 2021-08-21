@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../constants/constants.dart';
-import '../constants/story_brain.dart';
-import '../constants/config.dart';
+import '../resources/constants.dart';
+import '../config/story_brain.dart';
+import '../config/config.dart';
 
 // TODO: FEATURE! Choice Tracker to improve replayability
 StoryBrain storyBrain = StoryBrain();
@@ -117,7 +117,7 @@ class _StoryRouteState extends State<StoryRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawerEdgeDragWidth: 25.0,
-      endDrawer: userHand.getUserHand() == false
+      endDrawer: userHand.getHand() == false
           ? Theme(
               data: Theme.of(context).copyWith(),
               child: Container(
@@ -126,7 +126,7 @@ class _StoryRouteState extends State<StoryRoute> {
               ),
             )
           : null,
-      drawer: userHand.getUserHand() == true
+      drawer: userHand.getHand() == true
           ? Theme(
               data: Theme.of(context).copyWith(),
               child: Container(
@@ -172,11 +172,11 @@ class _StoryRouteState extends State<StoryRoute> {
                 Divider(),
                 Container(
                   height: 250.0,
-                  alignment: userHand.getUserHand() == true
+                  alignment: userHand.getHand() == true
                       ? Alignment.centerRight
                       : Alignment.centerLeft,
                   child: Directionality(
-                    textDirection: userHand.getUserHand() == true
+                    textDirection: userHand.getHand() == true
                         ? TextDirection.rtl
                         : TextDirection.ltr,
                     child: GridView.count(

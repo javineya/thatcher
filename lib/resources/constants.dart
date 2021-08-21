@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../pages/story_route.dart';
-import '../pages/settings_route.dart';
-import '../pages/recap_route.dart';
-import '../pages/info_route.dart';
+import '../routes/story_route.dart';
+import '../routes/settings_route.dart';
+import '../routes/recap_route.dart';
+import '../routes/info_route.dart';
 
 // ----------            ROUTES             ---------- //
 Map<String, WidgetBuilder> kRoutes = {
