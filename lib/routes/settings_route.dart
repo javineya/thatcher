@@ -137,8 +137,8 @@ class _SettingsRouteState extends State<SettingsRoute> {
                   : MainAxisAlignment.start,
               children: [
                 SizedBox(width: 40),
-                FloatingActionButton(
-                    child: Icon(Icons.arrow_back_outlined),
+                TextButton(
+                    child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
                     onPressed: () {
                       Navigator.pop(context);
                     }),

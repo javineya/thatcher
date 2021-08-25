@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../resources/constants.dart';
 
+// TODO: decide if this is necessary / what to put here
+
 class InfoRoute extends StatelessWidget {
   const InfoRoute({Key? key}) : super(key: key);
 

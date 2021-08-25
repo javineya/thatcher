@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-// TODO incorporate Hive here to save database
 Box _prefsBox = Hive.box("preferences");
 
 class MyTheme with ChangeNotifier {
