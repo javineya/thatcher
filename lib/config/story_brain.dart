@@ -157,9 +157,12 @@ List<StoryPage> _storyData = [
 //endregion
 
 class StoryBrain {
-  int _pageIndex = 0;
   Box prefsBox = Hive.box("preferences");
   Box userSavedBox = Hive.box("userSave");
+  int _pageIndex = 0;
+  Set<int> _storyRecap = {0};
+  Set<int> _userLibrary = {0};
+  Set<String> _userSituations = {};
 
   //region INFOBAR METHODS
   String getLocation() {
@@ -178,14 +181,14 @@ class StoryBrain {
 
   //region      PAGE VIEW METHODS
   void turnPage(index) {
-    buildRecap();
-    addIfSituation();
+    saveGame();
+    addSituation();
     setNextPageIndex(index);
     getPageContents();
   }
 
   int getSavedPage() {
-    return storyRecap.last;
+    return _storyRecap.last;
   }
 
   List getPageContents() {
@@ -215,32 +218,11 @@ class StoryBrain {
     return _storyData[_pageIndex].nextPageID;
   }
 
-  //endregion METHODS
-
-  //region GAME METHODS
-  // TODO: save userSituations to Hive, can't load saved progress otherwise
-  void loadSavedGame() {}
-
-  Set<String> _userSituations = {};
-
-  void resetGame() {
-    _userSituations = {};
-    userSavedBox.clear();
-    storyRecap = {0};
-    _pageIndex = 0;
-  }
-
-  void addIfSituation() {
-    if (_storyData[_pageIndex].addSituation != null) {
-      _userSituations.add(_storyData[_pageIndex].addSituation!);
-    }
-  }
-
   int getSituationIndex(situation) {
     switch (situation) {
       case "gameInProgress":
         {
-          return storyRecap.length == 1 ? 1 : storyRecap.last;
+          return _storyRecap.length == 1 ? 1 : _storyRecap.last;
         }
 
       case "testSituation":
@@ -264,20 +246,38 @@ class StoryBrain {
       _pageIndex = _storyData[_pageIndex].nextPageID[nextPageIndex];
     }
   }
+  //endregion METHODS
 
-  Set<int> storyRecap = {0};
-
-  void buildRecap() {
-    storyRecap.add(_pageIndex);
-    List<int> recap = storyRecap.toList();
-    userSavedBox.put("recap", recap);
+  //region GAME METHODS
+  // TODO: save userSituations to Hive, can't load saved progress otherwise
+  void loadSavedGame() {
+    _storyRecap = userSavedBox.get("recap").toSet() ?? {0};
+    _userLibrary = userSavedBox.get("library").toSet() ?? {0};
+    _userSituations = userSavedBox.get("situations").toSet() ?? {};
+    print("$_storyRecap\n$_userLibrary\n$_userSituations");
   }
 
-  void setRecap() {
-    List<int> recap = userSavedBox.get("recap") ?? [0];
-    storyRecap = recap.toSet();
+  void saveGame() {
+    _storyRecap.add(_pageIndex);
+    List<int> recap = _storyRecap.toList();
+    List<int> library = _userLibrary.toList();
+    List<String> situations = _userSituations.toList();
+    userSavedBox.put("recap", recap);
+    userSavedBox.put("library", library);
+    userSavedBox.put("situations", situations);
+  }
+
+  void resetGame() {
+    _userSituations = {};
+    userSavedBox.put("recap", [0]);
+    _storyRecap = {0};
+    _pageIndex = 0;
+  }
+
+  void addSituation() {
+    if (_storyData[_pageIndex].addSituation != null) {
+      _userSituations.add(_storyData[_pageIndex].addSituation!);
+    }
   }
 //endregion
-
-//region SETTINGS METHODS
 }

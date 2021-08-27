@@ -32,7 +32,7 @@ class RecapRoute extends StatelessWidget {
                 FloatingActionButton(
                   heroTag: 'btn1',
                   onPressed: () {
-                    storyBrain.setRecap();
+                    // TODO: FIX THIS
                   },
                 ),
                 FloatingActionButton(

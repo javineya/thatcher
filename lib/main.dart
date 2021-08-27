@@ -20,7 +20,7 @@ void main() async {
   Hive.init(document.path);
   await Hive.openBox("preferences");
   await Hive.openBox("userSave");
-  storyBrain.setRecap();
+  storyBrain.loadSavedGame();
   runApp(Thatcher());
 }
 
