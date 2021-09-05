@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO: refactor pageContents and remove List
+
 class StoryPage {
   final List<Container> pageContents;
   final String arcTitle;

@@ -181,10 +181,10 @@ class StoryBrain {
 
   //region      PAGE VIEW METHODS
   void turnPage(index) {
-    saveGame();
     addSituation();
     setNextPageIndex(index);
     getPageContents();
+    saveGame();
   }
 
   int getSavedPage() {
@@ -235,6 +235,29 @@ class StoryBrain {
           return 0;
         }
     }
+  }
+
+  Container getRecapPage(index) {
+    Container recapPage = _storyData[index].pageContents[0];
+
+    return recapPage;
+  }
+
+  List<Widget> getRecapContents() {
+    List<Widget> recapContents = [];
+    List storyRecap = userSavedBox.get("recap").toList() ?? [0];
+
+    int length = storyRecap.length;
+    for (int i = 0; i < length; i++) {
+      int recapIndex = storyRecap[i];
+      Container page = Container(
+        alignment: Alignment.center,
+        child: getRecapPage(recapIndex),
+      );
+      recapContents.add(page);
+    }
+
+    return recapContents;
   }
 
   // TODO: REMEMBER: situation checks come BEFORE the new page.

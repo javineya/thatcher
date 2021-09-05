@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../config/story_brain.dart';
-import '../resources/constants.dart';
+import '../config/config.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
@@ -16,31 +17,21 @@ class RecapRoute extends StatelessWidget {
           children: [
             Expanded(
               child: PageView(
-                children: [
-                  // TODO: get recap indices and wire this up proper-like
-                  Center(child: Container(child: Text('Testing One!'))),
-                  Center(child: Container(child: Text('Testing Two!'))),
-                  Center(child: Container(child: Text('Testing Three!'))),
-                  Center(child: Container(child: Text('Testing Four!')))
-                ],
+                children: storyBrain.getRecapContents(),
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: userHand.getHand() == true
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
               children: [
-                // TODO: wire these up to do actual things
-                FloatingActionButton(
-                  heroTag: 'btn1',
-                  onPressed: () {
-                    // TODO: FIX THIS
-                  },
-                ),
-                FloatingActionButton(
-                  heroTag: 'btn2',
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                )
+                SizedBox(width: 40),
+                TextButton(
+                    child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                SizedBox(width: 40),
               ],
             ),
             SizedBox(height: 16)

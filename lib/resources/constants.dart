@@ -35,6 +35,7 @@ TextStyle kTextNarration = TextStyle(
   fontWeight: FontWeight.normal,
   fontFamily: 'CrimsonText',
 );
+// TODO: add color variance for chosen/unchosen choices
 TextStyle kTextChoice = TextStyle(
   fontSize: 22,
   color: Colors.cyan[300],

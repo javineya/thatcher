@@ -194,7 +194,11 @@ class _StoryRouteState extends State<StoryRoute> {
                           return Container(
                             alignment: Alignment.center,
                             child: TextButton(
-                              child: Text(choices[index]),
+                              // TODO: add styling for previous choices
+                              child: Text(
+                                choices[index],
+                                style: kTextChoice,
+                              ),
                               onPressed: () {
                                 setState(
                                   () {
