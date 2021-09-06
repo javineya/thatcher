@@ -3,6 +3,9 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '../database/story_page.dart';
 
+// TODO implement highlighted choice feature
+// TODO implement repeat dead-end protection feature
+
 //region TEST DATA
 List<StoryPage> _storyData = [
   StoryPage(
