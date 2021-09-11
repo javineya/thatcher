@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '../database/story_page.dart';
+import '../config/config.dart';
 
 // TODO implement highlighted choice feature
 // TODO implement repeat dead-end protection feature
@@ -163,9 +164,9 @@ class StoryBrain {
   Box prefsBox = Hive.box("preferences");
   Box userSavedBox = Hive.box("userSave");
   int _pageIndex = 0;
-  Set<int> _storyRecap = {0};
-  Set<int> _userLibrary = {0};
-  Set<String> _userSituations = {};
+  Set<int> _storyRecap = userSave.getRecap();
+  Set<int> _userLibrary = userSave.getLibrary();
+  Set<String> _userSituations = userSave.getSituations();
 
   //region INFOBAR METHODS
   String getLocation() {
@@ -275,22 +276,13 @@ class StoryBrain {
   //endregion METHODS
 
   //region GAME METHODS
-  // TODO: save userSituations to Hive, can't load saved progress otherwise
-  void loadSavedGame() {
-    _storyRecap = userSavedBox.get("recap").toSet() ?? {0};
-    _userLibrary = userSavedBox.get("library").toSet() ?? {0};
-    _userSituations = userSavedBox.get("situations").toSet() ?? {};
-    print("$_storyRecap\n$_userLibrary\n$_userSituations");
-  }
-
   void saveGame() {
     _storyRecap.add(_pageIndex);
-    List<int> recap = _storyRecap.toList();
-    List<int> library = _userLibrary.toList();
-    List<String> situations = _userSituations.toList();
-    userSavedBox.put("recap", recap);
-    userSavedBox.put("library", library);
-    userSavedBox.put("situations", situations);
+    _userLibrary.add(_pageIndex);
+
+    userSave.setRecap(_storyRecap.toList());
+    userSave.setLibrary(_userLibrary.toList());
+    userSave.setSituations(_userSituations.toList());
   }
 
   void resetGame() {
