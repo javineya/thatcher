@@ -84,78 +84,81 @@ List<StoryPage> _storyData = [
       addSituation: 'testSituation',
       checkSituation: 'testSituation'), // 2 >> 3 !4
   StoryPage(
-    location: '',
-    arcTitle: 'Prologue',
-    pageContents: [
-      Container(
-        child: Column(
-          children: [
-            Text(
-              '-You come to the end of the test database.-\n\n',
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'TO: theUser@thatcher\n'
-                  'FR: theDeveloper@thatcher\n\n'
-                  'SB: Figure Out Message Background\n\n'
-                  'You want to have a message background. Make it work.',
+      location: '',
+      arcTitle: 'Prologue',
+      pageContents: [
+        Container(
+          child: Column(
+            children: [
+              Text(
+                '-You come to the end of the test database.-\n\n',
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.blueGrey,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    'TO: theUser@thatcher\n'
+                    'FR: theDeveloper@thatcher\n\n'
+                    'SB: Figure Out Message Background\n\n'
+                    'You want to have a message background. Make it work.',
+                  ),
                 ),
-              ),
-            )
-          ],
-        ),
-      )
-    ],
-    choices: ['Restart'],
-    nextPageID: [0],
-  ), // 3 >> 0
-  StoryPage(
-    location: '',
-    arcTitle: 'Situation!',
-    pageContents: [
-      Container(
-        child: Text.rich(
-          TextSpan(
-            text: '-You successfully passed a situation!.-\n\n',
-            children: <TextSpan>[
-              TextSpan(
-                text: 'Now keep working!',
-              ),
+              )
             ],
           ),
-          textAlign: TextAlign.center,
-        ),
-      )
-    ],
-    choices: ['Restart'],
-    nextPageID: [0],
-  ), // 4 >> 0
+        )
+      ],
+      choices: ['Restart'],
+      nextPageID: [0],
+      addSituation: "restart",
+      checkSituation: "restart"), // 3 >> 0
   StoryPage(
-    location: '',
-    arcTitle: 'Continue Button Test!',
-    pageContents: [
-      Container(
-        child: Text.rich(
-          TextSpan(
-            text: 'If you did it right, you will see this page.-\n\n',
-            children: <TextSpan>[
-              TextSpan(
-                text: 'Excellent! Now keep working!',
-              ),
-            ],
+      location: '',
+      arcTitle: 'Situation!',
+      pageContents: [
+        Container(
+          child: Text.rich(
+            TextSpan(
+              text: '-You successfully passed a situation!.-\n\n',
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Now keep working!',
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-      )
-    ],
-    choices: ['Restart'],
-    nextPageID: [0],
-  ), // 5 >> 0
+        )
+      ],
+      choices: ['Restart'],
+      nextPageID: [0],
+      addSituation: "restart",
+      checkSituation: "restart"), // 4 >> 0
+  StoryPage(
+      location: '',
+      arcTitle: 'Continue Button Test!',
+      pageContents: [
+        Container(
+          child: Text.rich(
+            TextSpan(
+              text: 'If you did it right, you will see this page.-\n\n',
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Excellent! Now keep working!',
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        )
+      ],
+      choices: ['Restart'],
+      nextPageID: [0],
+      addSituation: "restart",
+      checkSituation: "restart"), // 5 >> 0
 ];
 
 //endregion
@@ -180,7 +183,6 @@ class StoryBrain {
   String getCurrentPage() {
     return _pageIndex > 0 ? _pageIndex.toString() : '';
   }
-
   //endregion
 
   //region      PAGE VIEW METHODS
@@ -189,10 +191,6 @@ class StoryBrain {
     setNextPageIndex(index);
     getPageContents();
     saveGame();
-  }
-
-  int getSavedPage() {
-    return _storyRecap.last;
   }
 
   List getPageContents() {
@@ -218,10 +216,6 @@ class StoryBrain {
     return pageChoices;
   }
 
-  List getNextCellIDs() {
-    return _storyData[_pageIndex].nextPageID;
-  }
-
   int getSituationIndex(situation) {
     switch (situation) {
       case "gameInProgress":
@@ -232,6 +226,11 @@ class StoryBrain {
       case "testSituation":
         {
           return 5;
+        }
+      case "restart":
+        {
+          restartGame();
+          return 0;
         }
 
       default:
@@ -264,7 +263,6 @@ class StoryBrain {
     return recapContents;
   }
 
-  // TODO: REMEMBER: situation checks come BEFORE the new page.
   void setNextPageIndex(int nextPageIndex) {
     if (_storyData[_pageIndex].checkSituation != null) {
       String situation = _storyData[_pageIndex].checkSituation!;
@@ -285,7 +283,7 @@ class StoryBrain {
     userSave.setSituations(_userSituations.toList());
   }
 
-  void resetGame() {
+  void restartGame() {
     _userSituations = {};
     userSavedBox.put("recap", [0]);
     _storyRecap = {0};

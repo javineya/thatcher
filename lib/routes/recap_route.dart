@@ -5,8 +5,6 @@ import '../config/config.dart';
 
 StoryBrain storyBrain = StoryBrain();
 
-// TODO: MAKE THIS THING WORK
-
 class RecapRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

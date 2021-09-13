@@ -4,7 +4,6 @@ import '../resources/constants.dart';
 import '../config/story_brain.dart';
 import '../config/config.dart';
 
-// TODO: FEATURE! Choice Tracker to improve replayability
 StoryBrain storyBrain = StoryBrain();
 
 class StoryRoute extends StatefulWidget {
@@ -86,7 +85,7 @@ class _StoryRouteState extends State<StoryRoute> {
                                 _scrollController.position.minScrollExtent,
                                 duration: Duration(milliseconds: 100),
                                 curve: Curves.fastOutSlowIn);
-                            storyBrain.resetGame();
+                            storyBrain.restartGame();
                           },
                         );
                         Navigator.pop(context, 'Erase');
