@@ -51,7 +51,7 @@ class _StoryRouteState extends State<StoryRoute> {
         ListTile(
           title: Padding(
             padding: kSpacingDrawer,
-            child: Icon(Icons.delete_outline, size: kSizeDrawerIcon),
+            child: Icon(Icons.restart_alt_outlined, size: kSizeDrawerIcon),
           ),
           onTap: () {
             Navigator.pop(context);
@@ -68,7 +68,9 @@ class _StoryRouteState extends State<StoryRoute> {
                   ),
                   backgroundColor: Colors.black,
                   title: Text('Warning!', textAlign: TextAlign.center),
-                  content: Text('This will erase all progress.',
+                  content: Text(
+                      'This will restart your current\n'
+                      'story and erase the recap.',
                       textAlign: TextAlign.center),
                   actions: <Widget>[
                     TextButton(
@@ -91,7 +93,61 @@ class _StoryRouteState extends State<StoryRoute> {
                         Navigator.pop(context, 'Erase');
                       },
                       child: Text(
-                        'Erase',
+                        'Restart',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        ListTile(
+          title: Padding(
+            padding: kSpacingDrawer,
+            child: Icon(Icons.delete_outline, size: kSizeDrawerIcon),
+          ),
+          onTap: () {
+            Navigator.pop(context);
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => Container(
+                decoration: BoxDecoration(
+                  color: Color(0x2f0000).withOpacity(0.7),
+                ),
+                child: AlertDialog(
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  backgroundColor: Colors.black,
+                  title: Text('Warning!', textAlign: TextAlign.center),
+                  content: Text(
+                      'This will erase all user data,\n'
+                      'including settings and saved game data.',
+                      textAlign: TextAlign.center),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: Text(
+                        'Cancel',
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(
+                          () {
+                            _scrollController.animateTo(
+                                _scrollController.position.minScrollExtent,
+                                duration: Duration(milliseconds: 100),
+                                curve: Curves.fastOutSlowIn);
+                            storyBrain.deleteAll();
+                          },
+                        );
+                        Navigator.pop(context, 'Erase');
+                      },
+                      child: Text(
+                        'Erase All',
                       ),
                     ),
                   ],
@@ -115,6 +171,7 @@ class _StoryRouteState extends State<StoryRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //region DRAWER
       drawerEdgeDragWidth: 25.0,
       endDrawer: userHand.getHand() == false
           ? Theme(
@@ -134,6 +191,7 @@ class _StoryRouteState extends State<StoryRoute> {
               ),
             )
           : null,
+      //endregion
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
         constraints: BoxConstraints.expand(),
@@ -151,7 +209,7 @@ class _StoryRouteState extends State<StoryRoute> {
                     children: [
                       Text(storyBrain.getLocation()),
                       Text(storyBrain.getArcTitle()),
-                      Text(storyBrain.getCurrentPage()),
+                      Text(''),
                     ],
                   ),
                 ), // InfoBar
@@ -189,6 +247,7 @@ class _StoryRouteState extends State<StoryRoute> {
                         storyBrain.getChoices().length,
                         (index) {
                           List choices = storyBrain.getChoices();
+                          List pageIDs = storyBrain.getPageIDs();
 
                           return Container(
                             alignment: Alignment.center,
@@ -196,7 +255,11 @@ class _StoryRouteState extends State<StoryRoute> {
                               // TODO: add styling for previous choices
                               child: Text(
                                 choices[index],
-                                style: kTextChoice,
+                                style:
+                                    storyBrain.colorChoices(pageIDs[index]) ==
+                                            true
+                                        ? kTextChosen
+                                        : kTextUnchosen,
                               ),
                               onPressed: () {
                                 setState(

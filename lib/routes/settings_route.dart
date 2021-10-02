@@ -52,7 +52,6 @@ class _SettingsRouteState extends State<SettingsRoute> {
         ? _isSelectedMode = [false, true]
         : _isSelectedMode = [true, false];
   }
-
   //endregion
 
   @override

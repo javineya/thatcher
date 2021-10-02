@@ -7,8 +7,6 @@ import './config/story_brain.dart';
 import 'resources/constants.dart';
 import './config/config.dart';
 
-// TODO: add recap and savedPages to hive
-// TODO: add button for erasing ONLY recap (restart story)
 // TODO: add choice-tracking feature
 // TODO: tackle the story data, finally
 

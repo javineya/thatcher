@@ -12,7 +12,7 @@ class MyTheme with ChangeNotifier {
   }
 
   bool getTheme() {
-    return _prefsBox.get("darkMode");
+    return _prefsBox.get("darkMode") ?? false;
   }
 }
 
@@ -23,7 +23,7 @@ class UserHand with ChangeNotifier {
   }
 
   bool getHand() {
-    return _prefsBox.get("rightHandedUser");
+    return _prefsBox.get("rightHandedUser") ?? true;
   }
 }
 
@@ -33,7 +33,8 @@ class UserSave {
   }
 
   Set<int> getRecap() {
-    return _userSave.get("recap").toSet();
+    List<int> recap = _userSave.get("recap") ?? [0];
+    return recap.toSet();
   }
 
   void setLibrary(library) {
@@ -41,7 +42,8 @@ class UserSave {
   }
 
   Set<int> getLibrary() {
-    return _userSave.get("library").toSet();
+    List<int> library = _userSave.get("library") ?? [0];
+    return library.toSet();
   }
 
   void setSituations(situations) {
@@ -49,6 +51,7 @@ class UserSave {
   }
 
   Set<String> getSituations() {
-    return _userSave.get("situations").toSet();
+    List<String> situations = _userSave.get("situations") ?? [];
+    return situations.toSet();
   }
 }

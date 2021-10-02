@@ -24,7 +24,6 @@ TextStyle kTextTitle = TextStyle(
 );
 TextStyle kTextBody = TextStyle(
   fontSize: 22,
-  color: Colors.black,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
   fontFamily: 'CrimsonText',
@@ -36,9 +35,16 @@ TextStyle kTextNarration = TextStyle(
   fontFamily: 'CrimsonText',
 );
 // TODO: add color variance for chosen/unchosen choices
-TextStyle kTextChoice = TextStyle(
-  fontSize: 22,
-  color: Colors.cyan[300],
+TextStyle kTextChosen = TextStyle(
+  fontSize: 26,
+  color: Colors.red,
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'CrimsonText',
+);
+TextStyle kTextUnchosen = TextStyle(
+  fontSize: 26,
+  color: Colors.blue,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.bold,
   fontFamily: 'CrimsonText',
@@ -51,11 +57,28 @@ TextStyle kTextLoud = TextStyle(
 );
 TextStyle kTextInfoBar = TextStyle(
     color: Colors.blueGrey, fontSize: 20, fontStyle: FontStyle.italic);
-TextStyle kTextTerminal = TextStyle(
-  fontSize: 22,
+TextStyle kTextTerminalTitle = TextStyle(
+  fontSize: 24,
   fontStyle: FontStyle.normal,
   fontWeight: FontWeight.normal,
   fontFamily: 'Merriweather',
+);
+TextStyle kTextTerminal = TextStyle(
+  fontSize: 18,
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.normal,
+  fontFamily: 'Merriweather',
+);
+//endregion
+
+//region DECORATIONS
+BoxDecoration kBoxMessage = BoxDecoration(
+  color: Colors.blueGrey,
+  borderRadius: BorderRadius.circular(10),
+);
+BoxDecoration kBoxFile = BoxDecoration(
+  color: Color(0xff005853),
+  borderRadius: BorderRadius.circular(5),
 );
 //endregion
 
@@ -64,7 +87,7 @@ const kSpacingDrawer = EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0);
 const kSizeDrawerIcon = 40.0;
 //endregion
 
-//region APP ColorScheme
+//region APP SCHEME
 // Dark Purple:                    242038
 // Slate Blue:                     752ac1
 // Middle Blue Purple:             8d86c9
