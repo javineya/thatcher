@@ -69,6 +69,14 @@ TextStyle kTextTerminal = TextStyle(
   fontWeight: FontWeight.normal,
   fontFamily: 'Merriweather',
 );
+TextStyle kTextFancyBig = TextStyle(
+  fontSize: 50,
+  fontFamily: 'FleurDeLeah',
+);
+TextStyle kTextOlde = TextStyle(
+  fontSize: 40,
+  fontFamily: 'EnglishTowne',
+);
 //endregion
 
 //region DECORATIONS
@@ -78,6 +86,14 @@ BoxDecoration kBoxMessage = BoxDecoration(
 );
 BoxDecoration kBoxFile = BoxDecoration(
   color: Color(0xff005853),
+  borderRadius: BorderRadius.circular(5),
+);
+BoxDecoration kBoxUrn = BoxDecoration(
+  color: Color(0xff524c54),
+  borderRadius: BorderRadius.circular(5),
+);
+BoxDecoration kBoxPaper = BoxDecoration(
+  color: Color(0xff4f4f42),
   borderRadius: BorderRadius.circular(5),
 );
 //endregion

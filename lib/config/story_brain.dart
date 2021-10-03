@@ -5,13 +5,12 @@ import 'package:thatcher/resources/constants.dart';
 import '../database/story_page.dart';
 import '../config/config.dart';
 
-// TODO implement highlighted choice feature
 // TODO implement repeat dead-end protection feature
-// TODO FIX RECAP (BREAKS IF ACCESSED ON NEW APP OPEN)
 // TODO FIX RECAP SCROLL OVERFLOW
 
 //region STORY DATA
 List<StoryPage> _storyData = [
+  //region INTRO
   StoryPage(
     location: '',
     arcTitle: '',
@@ -146,7 +145,7 @@ List<StoryPage> _storyData = [
               ),
             ],
           ),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
       )
     ],
@@ -216,13 +215,13 @@ List<StoryPage> _storyData = [
               ),
             ],
           ),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
       )
     ],
     choices: ['Wait', 'Look Around'],
-    nextPageID: [5, 6],
-  ), // 4 >> 5,X
+    nextPageID: [5, 12],
+  ), // 4 >> 5,12
   StoryPage(
     location: '',
     arcTitle: 'Intro',
@@ -296,7 +295,7 @@ List<StoryPage> _storyData = [
               )
             ],
           ),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.left,
         ),
       )
     ],
@@ -482,8 +481,13 @@ List<StoryPage> _storyData = [
                 ),
                 TextSpan(
                   text: 'Jeremiah is a reclusive, but very gifted artist. His '
-                      'style is constantly adapting and taking elements from other Masons of the past and present. '
-                      'Unfortunately, He rarely grants audience to anyone, and spends nearly all'
+                      'style is constantly adapting and evolving. He '
+                      'incorporates elements from all known Masons and adds '
+                      'variations of his own. He is the most sought-after '
+                      'Mason by the Tier 1 residents and works almost '
+                      'exclusively with them.\n\n '
+                      'Unfortunately, he rarely grants audience to anyone, '
+                      'and spends nearly all'
                       ' his time researching or designing. \n\n'
                       'He also refuses'
                       ' to allow people to '
@@ -525,7 +529,352 @@ List<StoryPage> _storyData = [
     ],
     choices: ['Continue'],
     nextPageID: [11],
-  ),
+  ), // 10 >> 11
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher leans back in his chair and stares at '
+                      'the ceiling. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'One of these Masons is probably a mass murderer, '
+                      'unless Ernesto decided to take a whole Spire with him '
+                      'when he retired.\n\n'
+                      'Gotta be smart about this, and quiet. Erase these '
+                      'files first, scrub my messages with Theo, call in some'
+                      ' vacation time. Plenty of reason to ask for that...\n\n'
+                      'Alright, Thatch: Who do we look at first?',
+                  style: kTextBody,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['Michael'],
+    addSituation: "restart",
+    checkSituation: "restart",
+    nextPageID: [0],
+  ), // 11 >> ARCS
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher looks around his office, focusing on '
+                      'a few important objects to help clear his mind. --\n\n',
+                  style: kTextNarration,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['The Urn', 'The Degree', 'The Award', 'The Guitar'],
+    nextPageID: [13, 14, 15, 16],
+  ), // 12 >> 13,14,15,16
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Column(
+          children: [
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '-- Thatcher looks at an ornate funerary urn sitting '
+                        'on a shelf among well-tended flowering plants. --\n\n',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+            Container(
+              decoration: kBoxUrn,
+              child: Padding(
+                padding: const EdgeInsets.all(50.0),
+                child: Text.rich(
+                    TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Zora Miriam Thatcher\n\n\n',
+                          style: kTextFancyBig,
+                        ),
+                        TextSpan(
+                          text: 'Gone Too Soon\n',
+                          style: kTextNarration,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '\nZora, wish you were here. You\'d be so proud of '
+                        'our son. He\'s a doctor, Zora. Says he\'s gonna cure'
+                        ' Spire Sickness someday. He\'ll do it, too. He\'s so'
+                        ' sma--\n\n',
+                    style: kTextBody,
+                  ),
+                  TextSpan(
+                    text: '-- Thatcher rakes a sleeve across his damp eyes '
+                        'and inhales deeply. He exhales slowly and looks '
+                        'around the room again. --',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['Wait for Theo', 'The Degree', 'The Award', 'The Guitar'],
+    nextPageID: [5, 14, 15, 16],
+  ), // Urn     13 >> 5,14,15,16
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Column(
+          children: [
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '-- Thatcher\'s eyes come to rest on a framed '
+                        'degree hanging below a picture of a handsome young '
+                        'man. --\n'
+                        '\n',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+            Container(
+              decoration: kBoxPaper,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text.rich(
+                    TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'All-Spire Medical University\n\n',
+                          style: kTextOlde,
+                        ),
+                        TextSpan(
+                          text: 'in consideration of the satisfactory '
+                              'completion of'
+                              ' all requirements prescribed by the faculty, '
+                              'hereby confers upon'
+                              '\n',
+                          style: kTextNarration,
+                        ),
+                        TextSpan(
+                          text: 'Sean Julio Thatcher\n\n',
+                          style: kTextTitle,
+                        ),
+                        TextSpan(
+                          text: 'the degree of'
+                              '\n',
+                          style: kTextNarration,
+                        ),
+                        TextSpan(
+                          text: 'Medical Doctor\n\n',
+                          style: kTextTitle,
+                        ),
+                        TextSpan(
+                          text: 'together with all the rights, privileges, '
+                              'and responsibilities pertaining thereto. '
+                              'Completed with the seal of our Spirelord and '
+                              'authorized on this day:\n\n'
+                              'June Seventeenth, 1237'
+                              '\n',
+                          style: kTextNarration,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '\nI know you\'re okay, son. If anyone is okay, it'
+                        '\'s you.\n\n',
+                    style: kTextBody,
+                  ),
+                  TextSpan(
+                    text: '-- Thatcher quickly lets his gaze roam, denying '
+                        'himself time to consider that he may be wrong. --',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['The Urn', 'Wait for Theo', 'The Award', 'The Guitar'],
+    nextPageID: [13, 5, 15, 16],
+  ), // Degree  14 >> 13,5,15,16
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Column(
+          children: [
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '-- Thatcher\'s gaze falls on a wall full of framed'
+                        ' awards and certificates. One award is displayed '
+                        'more prominently than the rest. --\n'
+                        '\n',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+            Container(
+              decoration: kBoxPaper,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text.rich(
+                    TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Special Investigator\n\n',
+                          style: kTextOlde,
+                        ),
+                        TextSpan(
+                          text: 'Empowered with all the rights and privileges'
+                              ' granted in the All-Spire Constitution.\n',
+                          style: kTextNarration,
+                        ),
+                        TextSpan(
+                          text: 'Garrett Bernard Thatcher\n\n',
+                          style: kTextTitle,
+                        ),
+                        TextSpan(
+                          text: 'has sworn to uphold the code of this position'
+                              ' and never to abuse this authority.\n\n',
+                          style: kTextNarration,
+                        ),
+                        TextSpan(
+                          text: 'January 1, 1224',
+                          style: kTextNarration,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center),
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '\nSo tacky. Should have taken this all down years '
+                        'ago. Zora, you always liked showing off everyone '
+                        'else. Wish you liked matching picture frames.\n\n',
+                    style: kTextBody,
+                  ),
+                  TextSpan(
+                    text: '-- Thatcher smiles and runs his fingers gently '
+                        'across the top of the carved wooden frame in the '
+                        'same spot as always, worn by years of the same '
+                        'treatment from Thatcher\'s deceased wife. --',
+                    style: kTextNarration,
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ],
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['The Urn', 'The Degree', 'Wait for Theo', 'The Guitar'],
+    nextPageID: [13, 14, 5, 16],
+  ), // Award   15 >> 13,14,5,16
+  StoryPage(
+    location: '',
+    arcTitle: 'Intro',
+    pageContents: [
+      Container(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher picks up a guitar leaned against his '
+                      'desk. He deftly plucks a few notes. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Wow, out of tune. Guess it has been quite a while '
+                      'since it had any reason to be in tune. Maybe I should '
+                      'pick it back up...\n\n Maybe after I solve this case.\n'
+                      '\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher puts the guitar back down and stares '
+                      'blankly at the floor for a moment before snapping '
+                      'himself out of his reverie. --',
+                  style: kTextNarration,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        ),
+      )
+    ],
+    // TODO add arcs here as they are created
+    choices: ['The Urn', 'The Degree', 'The Award', 'Wait for Theo'],
+    nextPageID: [13, 14, 15, 5],
+  ), // Guitar  16 >> 13,14,15,5
   StoryPage(
       pageContents: [
         Container(
@@ -537,6 +886,7 @@ List<StoryPage> _storyData = [
       location: '',
       choices: ['Restart'],
       nextPageID: [0]) // START OVER
+  //endregion
 ];
 //endregion
 
@@ -698,7 +1048,7 @@ List<StoryPage> _storyData = [
 class StoryBrain {
   Box prefsBox = Hive.box("preferences");
   Box userSavedBox = Hive.box("userSave");
-  int _pageIndex = 10;
+  int _pageIndex = 0;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
   Set<String> _userSituations = userSave.getSituations();
@@ -767,7 +1117,8 @@ class StoryBrain {
 
   List<Widget> getRecapContents() {
     List<Widget> recapContents = [];
-    List storyRecap = userSavedBox.get("recap").toList() ?? [0];
+    List storyRecap = userSavedBox.get("recap") ?? [0];
+    storyRecap.toList();
 
     int length = storyRecap.length;
     for (int i = 0; i < length; i++) {
@@ -822,7 +1173,6 @@ class StoryBrain {
   }
 
   void deleteAll() {
-    prefsBox.clear();
     userSavedBox.clear();
   }
 

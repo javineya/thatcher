@@ -491,12 +491,12 @@ List<StoryPage> _storyData = [
     arcTitle: 'Prologue',
     pageText: RichText(
       text: TextSpan(
-        text: 'University of Spire Eight\n'
-            'The University of Spire Eight, upon the recommendation of the faculty, confers upon'
+        text: 'Medical University of Spire Eight\n'
+            'The Medical University of Spire Eight, upon the recommendation of the faculty, confers upon'
             'Sean Julio Thatcher'
             'who has satisfactorily met the standards and requirements set forth by the University for graduation the degree'
-            'Bachelor of Science'
-            'As evidence of attainments and the granting of all rights pertaining to that degree'
+            'Doctor of Medicine'
+            'As evidence of attainments and the granting of all rights pertaining thereto'
             'The Spirelord of Spire Eight has issued this diploma on the tenth day of April in the year twelve hundred and thirty-four.',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
       ),

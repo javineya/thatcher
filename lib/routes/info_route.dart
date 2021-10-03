@@ -23,7 +23,15 @@ class InfoRoute extends StatelessWidget {
                   textAlign: TextAlign.center,
                   text: TextSpan(
                     text: 'Credits\n\n',
-                    children: <TextSpan>[TextSpan(text: 'More info later.')],
+                    children: <TextSpan>[
+                      TextSpan(
+                        text:
+                            'Thatcher was written and created by a single person'
+                            '. If there are bugs or errors in either the game or '
+                            'the writing, I do apologize. Please inform me so I '
+                            'can fix them.\n\n',
+                      )
+                    ],
                   ),
                 ),
                 FloatingActionButton(onPressed: () {

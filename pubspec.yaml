@@ -45,3 +45,9 @@ flutter:
         - asset: fonts/Merriweather-Light.ttf
         - asset: fonts/Merriweather-LightItalic.ttf
         - asset: fonts/Merriweather-Regular.ttf
+    - family: FleurDeLeah
+      fonts:
+        - asset: fonts/FleurDeLeah-Regular.ttf
+    - family: EnglishTowne
+      fonts:
+        - asset: fonts/EnglishTowne.ttf

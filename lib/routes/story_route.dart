@@ -123,8 +123,9 @@ class _StoryRouteState extends State<StoryRoute> {
                   backgroundColor: Colors.black,
                   title: Text('Warning!', textAlign: TextAlign.center),
                   content: Text(
-                      'This will erase all user data,\n'
-                      'including settings and saved game data.',
+                      'This will erase all story data,\n'
+                      'including pages player visited in previous '
+                      'read-throughs.',
                       textAlign: TextAlign.center),
                   actions: <Widget>[
                     TextButton(
