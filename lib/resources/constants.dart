@@ -96,11 +96,19 @@ BoxDecoration kBoxPaper = BoxDecoration(
   color: Color(0xff4f4f42),
   borderRadius: BorderRadius.circular(5),
 );
+BoxDecoration kBoxConvo = BoxDecoration(
+  color: Color(0xff000000),
+  borderRadius: BorderRadius.circular(8),
+);
 //endregion
 
 //region SIZING STYLES
 const kSpacingDrawer = EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0);
+const kSpacingConvoLeft = EdgeInsets.fromLTRB(0.0, 0.0, 100.0, 10.0);
+const kSpacingConvoRight = EdgeInsets.fromLTRB(100.0, 0.0, 0.0, 10.0);
 const kSizeDrawerIcon = 40.0;
+const Alignment kConvoLeft = Alignment.center;
+const Alignment kConvoRight = Alignment.center;
 //endregion
 
 //region APP SCHEME

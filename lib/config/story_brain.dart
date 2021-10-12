@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:thatcher/resources/constants.dart';
 import '../database/story_page.dart';
+import '../database/convo_card.dart';
 import '../config/config.dart';
 
 // TODO implement repeat dead-end protection feature
@@ -134,14 +135,9 @@ List<StoryPage> _storyData = [
               TextSpan(
                 style: kTextBody,
                 text: 'Gotta find out what happened. Why are they lying? '
-                    'Gotta stay quiet about it. Focus! If C-Max is involved, '
-                    'had to be a Mason. Talk to Theo, get info on the '
-                    'Masons.\n\n',
-              ),
-              TextSpan(
-                style: kTextNarration,
-                text: '-- Thatcher sits at his terminal and begins '
-                    'hammering out a message. --',
+                    'Gotta be hiding something. Focus! If C-Max is involved, '
+                    'had to be a Mason. That explains the lies. What now? Talk '
+                    'to Theo, get info on the Masons.\n\n',
               ),
             ],
           ),
@@ -157,32 +153,45 @@ List<StoryPage> _storyData = [
     arcTitle: 'Intro',
     pageContents: [
       Container(
-        decoration: kBoxMessage,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text.rich(
-            TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  style: kTextTerminal,
-                  text: 'TO: theodore.strayhorn@spire14\n',
-                ),
-                TextSpan(
-                  style: kTextTerminal,
-                  text: 'FR: garrett.thatcher@si.spire5\n',
-                ),
-                TextSpan(
-                  style: kTextTerminal,
-                  text: 'SB: No Subject\n\n',
-                ),
-                TextSpan(
-                    style: kTextTerminal,
-                    text: 'Tell me everything you know about the living '
-                        'Masons. Keep it short.')
-              ],
+        child: Column(
+          children: [
+            Container(
+              child: Text(
+                  '-- Thatcher taps his terminal screen and brings up'
+                  ' the messenger. A keyboard appears on his desk surface, '
+                  'and he begins rapidly typing a message. --\n\n',
+                  style: kTextNarration),
             ),
-            textAlign: TextAlign.left,
-          ),
+            Container(
+              decoration: kBoxMessage,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text.rich(
+                  TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        style: kTextTerminal,
+                        text: 'TO: theodore.strayhorn@spire14\n',
+                      ),
+                      TextSpan(
+                        style: kTextTerminal,
+                        text: 'FR: garrett.thatcher@si.spire5\n',
+                      ),
+                      TextSpan(
+                        style: kTextTerminal,
+                        text: 'SB: No Subject\n\n',
+                      ),
+                      TextSpan(
+                          style: kTextTerminal,
+                          text: 'Tell me everything you know about the living '
+                              'Masons. Keep it short.')
+                    ],
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            )
+          ],
         ),
       )
     ],
@@ -337,8 +346,8 @@ List<StoryPage> _storyData = [
                       'rumors:\n\n'
                       'I have heard that Michael does not strictly follow the Masonic code.'
                       ' He spends many nights at a not-so-secret club on Spire 12 called '
-                      '\' The Broken Tail\'. I believe you have had dealings there '
-                      'in  the past. \n\n'
+                      '\'The Broken Tail\'. I believe you have had dealings there '
+                      'in the past. \n\n'
                       'There are other rumors that Michael and '
                       'Ricardo do not get along very well, though the reasons '
                       'are not known. Masons usually have close bonds with the '
@@ -874,7 +883,72 @@ List<StoryPage> _storyData = [
     // TODO add arcs here as they are created
     choices: ['The Urn', 'The Degree', 'The Award', 'Wait for Theo'],
     nextPageID: [13, 14, 15, 5],
-  ), // Guitar  16 >> 13,14,15,5
+  ), // Guitar  16 >> 13,14,15,
+  //endregion
+  //region MICHAEL
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Alright, let\'s go have a chat with the playboy. '
+                      'Should talk to D first. See if she\'s still in charge '
+                      'of Broken Tail. Been a long time...wonder if she\'s '
+                      'still mad.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher heads to the terminal to catch a tube to'
+                      ' Spire 12. --',
+                  style: kTextBody,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [0]), // 17 >> 18
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text(
+                  '-- Thatcher arrives on Spire 12 and '
+                  'quickly finds a com booth at the terminal. He reluctantly '
+                  'punches in a number and waits for an answer. --\n\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardRight(convoText: 'Yeah, who is it?'),
+            ConvoCardLeft(
+                convoText:
+                    'That any way to talk to a \nSpecial Investigator, D?'),
+            ConvoCardRight(convoText: 'Thatch?'),
+            ConvoCardLeft(convoText: 'Que pasa? Long time no see.'),
+            ConvoCardRight(
+                convoText: 'Not long enough. And don\'t speak my language, '
+                    'cabron. It grates my ears.'),
+            ConvoCardLeft(convoText: 'Missed you, too.'),
+            ConvoCardRight(convoText: 'What do you want? I\'m busy.'),
+            ConvoCardLeft(
+                convoText: 'Need to have a chat with someone at your bar.'),
+            ConvoCardRight(
+                convoText: 'Why should I help you? I thought we were square.'),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Truth', 'Lie'],
+      nextPageID: [19, 19]), // 18 >>
   StoryPage(
       pageContents: [
         Container(
@@ -885,7 +959,7 @@ List<StoryPage> _storyData = [
       arcTitle: '',
       location: '',
       choices: ['Restart'],
-      nextPageID: [0]) // START OVER
+      nextPageID: [0]), // TEMP END
   //endregion
 ];
 //endregion
@@ -1048,7 +1122,7 @@ List<StoryPage> _storyData = [
 class StoryBrain {
   Box prefsBox = Hive.box("preferences");
   Box userSavedBox = Hive.box("userSave");
-  int _pageIndex = 0;
+  int _pageIndex = 18;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
   Set<String> _userSituations = userSave.getSituations();
