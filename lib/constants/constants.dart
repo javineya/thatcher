@@ -107,8 +107,8 @@ const kSpacingDrawer = EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0);
 const kSpacingConvoLeft = EdgeInsets.fromLTRB(0.0, 0.0, 100.0, 10.0);
 const kSpacingConvoRight = EdgeInsets.fromLTRB(100.0, 0.0, 0.0, 10.0);
 const kSizeDrawerIcon = 40.0;
-const Alignment kConvoLeft = Alignment.center;
-const Alignment kConvoRight = Alignment.center;
+const Alignment kConvoLeft = Alignment.centerLeft;
+const Alignment kConvoRight = Alignment.centerRight;
 //endregion
 
 //region APP SCHEME

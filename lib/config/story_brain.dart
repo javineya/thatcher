@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:thatcher/resources/constants.dart';
+import 'package:thatcher/constants/constants.dart';
 import '../database/story_page.dart';
 import '../database/convo_card.dart';
 import '../config/config.dart';
@@ -11,7 +11,7 @@ import '../config/config.dart';
 
 //region STORY DATA
 List<StoryPage> _storyData = [
-  //region INTRO
+  //region Intro
   StoryPage(
     location: '',
     arcTitle: '',
@@ -914,6 +914,7 @@ List<StoryPage> _storyData = [
       arcTitle: '',
       location: '',
       choices: ['Continue'],
+      addSituation: 'visitedMichael',
       nextPageID: [0]), // 17 >> 18
   StoryPage(
       pageContents: [
@@ -941,14 +942,727 @@ List<StoryPage> _storyData = [
             ConvoCardLeft(
                 convoText: 'Need to have a chat with someone at your bar.'),
             ConvoCardRight(
-                convoText: 'Why should I help you? I thought we were square.'),
+                convoText: 'Why should I help you? I owe you nothing.'),
           ]),
         )
       ],
       arcTitle: '',
       location: '',
       choices: ['Truth', 'Lie'],
-      nextPageID: [19, 19]), // 18 >>
+      nextPageID: [19, 19]), // 18 >> 19
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text('-- Thatcher decides to tell the truth. --\n\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(
+                convoText: 'Spire 17. The police have the wrong guy, '
+                    'and someone at your club has info.'),
+            ConvoCardRight(
+                convoText: 'What do I care about that? It wasn\'t '
+                    'my Spire.'),
+            ConvoCardLeft(convoText: 'D, help me out.'),
+            ConvoCardRight(
+                convoText: 'It\'s Deonara. Tell you what, '
+                    'there is something you can do for me.'),
+            ConvoCardLeft(convoText: 'What\'s that?'),
+            ConvoCardRight(
+                convoText: 'Someone is dealing in my club. I don'
+                    '\'t deal with drugs anymore, but I don\'t know who it is. '
+                    'Find them, give them to me, and I\'ll let you in.'),
+            ConvoCardLeft(
+                convoText: 'Give them to you? Sounds an awful lot like '
+                    'accomplice to murder.'),
+            ConvoCardRight(
+                convoText: 'What do you care what happens? You want your '
+                    'info, right?'),
+            ConvoCardLeft(
+                convoText: 'No one needs to die, but this dealer can be dealt'
+                    ' with by law. Deal?'),
+            ConvoCardRight(
+                convoText: 'No good. I gotta send a message, and I don\'t '
+                    'want that message to be that I work with the police.'),
+            ConvoCardLeft(convoText: 'D, we can find--'),
+            ConvoCardRight(convoText: 'Look, that\'s the deal. You in or not?'),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Agree', 'Decline'],
+      nextPageID: [20, 20]), // 19 >> 20, XX
+  //region D's Favor
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text(
+                  '-- Thatcher decides to agree to the deal, thinking'
+                  ' that he can figure out a way to maintain his morals later. '
+                  '--\n\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(convoText: 'Fine, it\'s a deal.'),
+            ConvoCardRight(
+                convoText: 'Wow, this must be really important to you. '
+                    'Thought for sure you\'d turn that down. What is this '
+                    'really about, Thatch?'
+                    '.'),
+            ConvoCardLeft(convoText: 'Do you care?'),
+            ConvoCardRight(
+                convoText: 'Not really, but everyone loves a little gossip.'),
+            ConvoCardLeft(convoText: 'Where is the club, D?'),
+            ConvoCardRight(
+                convoText: 'I\'ll have one of my boys show you. Hang around '
+                    'the station, it won\'t take long.'),
+            ConvoCardLeft(convoText: 'Thanks.'),
+            ConvoCardRight(
+                convoText: 'This is mutual benefit, Thatch. No need to thank '
+                    'me, just give me the dealer.'),
+            Container(
+              child: Text(
+                  '\n\n-- The com goes silent. Thatcher steps out of the booth '
+                  'and waits for his escort to arrive. --\n\n',
+                  style: kTextNarration),
+            ),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [21]), // 20 >> 21
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher doesn\'t wait long. A brute of a man '
+                      'appears and walks straight up to him. Without a '
+                      'word, the man nods, turns, and begins briskly walking '
+                      'away.'
+                      ' --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'No pleasantries, huh? Fine by me.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher follows the man through twisting alleys,'
+                      ' sudden turns, and frequent stops. It\'s clear that '
+                      'the man is making it difficult for Thatcher to '
+                      'remember his path. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'This is wasting both of our time, friend. Get to the'
+                      ' point already. We\'ve been circling the same block '
+                      'for fifteen minutes.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- The man stops, chuckles, and wordlessly points to'
+                      ' a bakery they have passed several times already. '
+                      'Thatcher raises an eyebrow, but the man begins '
+                      'lumbering quickly away before he can say a word. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'A bakery, huh? Let\'s see what we\'ve got inside.\n\n',
+                  style: kTextBody,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [22]), // 21 >> 22
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher enters the bakery. It looks like a '
+                      'normal bakery, except that the baker appears to be cut'
+                      ' from the same stone as the man who led Thatcher here. '
+                      '--\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Don\'t suppose you\'ve got a cinnamon roll warmed up'
+                      ' for me?\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Without a word, the man throws a thumb over his '
+                      'shoulder, motioning Thatcher into the room behind the '
+                      'counter. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'You know, this whole \'silent giant\' thing is cute.'
+                      ' You boys should start a comedy troupe or something.'
+                      '\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher heads into the back room, where a '
+                      'too-attractive woman is standing next to an enclosed '
+                      'storage rack for allowing the dough to rise. With a '
+                      'gentle push, the rack slides sideways and reveals a '
+                      'staircase leading down. Above the entrance, the '
+                      'symbol VI is etched into the wall. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Shouldn\'t it be VIP? Nevermind, forgot about the '
+                      'silent game you all play here.'
+                      '.\n'
+                      '\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- The woman smiles and gestures down the staircase.'
+                      ' Thatcher heads down. --\n\n',
+                  style: kTextNarration,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [23]), // 22 >> 23
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- The bread rack slides closed behind Thatcher, and'
+                      ' the corridor goes dark. Almost as quickly, a soft '
+                      'glow radiates from the floor, showing the stairs. The '
+                      'glow brightens until the corridor is comfortably lit.'
+                      '\n\n'
+                      'Thatcher takes a moment to orient himself, and begins '
+                      'walking, talking to himself as usual. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Interesting. No one but a Mason could have made this'
+                      '. Was it Michael, or is this even older? Guess the '
+                      'Masons aren\'t saints behind closed doors.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher walks confidently down the corridor, '
+                      'which is far longer than he expected. He finally '
+                      'sees a door, and it slides open as he gets closer. --\n'
+                      '\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Should come back and investigate this later, but now'
+                      ' is not the time.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Passing the door, Thatcher walks into an '
+                      'octagon-shaped room with doors on every side. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'So the bakery isn\'t the only secret entrance. This '
+                      'place is impressive.\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- One of the doors slides open, and Thatcher is '
+                      'overwhelmed by loud, thumping music he couldn\'t '
+                      'hear before. A woman wearing a beautiful dress '
+                      'smiles at Thatcher like an old friend, and walks '
+                      'straight up to him. --\n\n',
+                  style: kTextNarration,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [24]), // 22 >> 23
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text(
+                  '-- Thatcher smiles at the woman and nods slightly.'
+                  ' --\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardRight(convoText: 'Welcome, Mr...?'),
+            ConvoCardLeft(convoText: 'You can call me Garrett. No Mr.'),
+            ConvoCardRight(
+                convoText: 'Alright, Garrett. Allow me to show you'
+                    ' inside.'),
+            ConvoCardLeft(convoText: 'Excellent. Lead the way, Miss...'),
+            ConvoCardRight(convoText: 'And you can call me Emma.'),
+            ConvoCardLeft(
+                convoText: 'It\'s my first time here, Emma, you '
+                    'mind giving me a quick tour?'),
+            ConvoCardRight(
+                convoText: 'I would love to, but my job is to '
+                    'greet the guests. I\'m happy to introduce you to someone who'
+                    ' will help you.'),
+            ConvoCardLeft(convoText: 'I\'m really just looking for a friend.'),
+            ConvoCardRight(convoText: 'Well, we can help you with that, too.'),
+            Container(
+              child: Text('\n-- Thatcher blushes and then chuckles. --\n\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(
+                convoText: 'Oh no, not that--a friend told me to meet him '
+                    'here, but I don\'t know where he is.'),
+            ConvoCardRight(
+                convoText: 'I see. My mistake. And who is your friend?'),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Michael', 'The Dealer'],
+      nextPageID: [25, 25]), // 24 >> 25, XX
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text('-- Thatcher decides to tell the truth. --\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(convoText: 'Michael, the Mason.'),
+            ConvoCardRight(
+                convoText: 'A Mason? Here? I\'m afraid you must be mistaken,'
+                    ' Garrett.'),
+            ConvoCardLeft(
+                convoText: 'Interesting. Told me to meet him here '
+                    'but he doesn\'t come?'),
+            ConvoCardRight(
+                convoText: 'I am sorry for the confusion. You are '
+                    'here now, and you\'re free to come in and take a look around'
+                    '.'),
+            ConvoCardLeft(
+                convoText: 'Thank you, Emma. If Michael is here, he\'ll be '
+                    'sure to know that you protected him.'),
+            ConvoCardRight(
+                convoText: 'Have a wonderful evening, Garrett. And if you '
+                    'find yourself looking for a different friend, come and '
+                    'see me and I\'ll arrange all the details.'),
+            Container(
+              child: Text(
+                  '\n-- Thatcher sheepishly nods and walks away from '
+                  'Emma, deeper into the club. He calmly scans the room. The '
+                  'floor he stands on is a large dance floor. A live band '
+                  'plays on a short stage. A second floor circles the entire '
+                  'dance floor, where patrons sit at tables drinking, '
+                  'talking, and watching the dance floor. Thatcher sees a '
+                  'staircase across the dance floor. --\n'
+                  '\n',
+                  style: kTextNarration),
+            ),
+            Container(
+                child: Text(
+                    'Too many people here. Better view from the second '
+                    'floor.\n\n',
+                    style: kTextBody)),
+            Container(
+              child: Text(
+                  '-- Thatcher makes his way across the dance a floor; a sea '
+                  'of people in expensive clothes. He heads up the '
+                  'staircase, but finds that it splits halfway. To the '
+                  'left, the staircase opens onto the second floor. To '
+                  'the right, it leads to a door with a keypad. --\n\n',
+                  style: kTextNarration),
+            )
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Second Floor', 'The Door'],
+      nextPageID: [26, 26]), // 25 >> 26, XX
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Text.rich(
+            TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: '-- Thatcher goes left, up the stairs and onto the '
+                      'second floor. Immediately, he is approached by another'
+                      ' attractive woman, only this time there are two guards'
+                      ' flanking her. She smiles brightly and motions for '
+                      'Thatcher to ignore the two men. The booming music on '
+                      'the second floor gives cause for her expressiveness, '
+                      'and she leans very close to Thatcher, turning an ear '
+                      'toward him. --\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Where is Michael?\n\n',
+                  style: kTextBody,
+                ),
+                TextSpan(
+                  text: '-- Thatcher asks the question directly into her ear,'
+                      ' but distant enough to see her face. Her bright smile '
+                      'slips for an instant, but she regains it and steps '
+                      'back. She gestures to a large corner table and moves '
+                      'quickly to greet another guest that has appeared '
+                      'at the top of the stairs.\n\n',
+                  style: kTextNarration,
+                ),
+                TextSpan(
+                  text: 'Thatcher makes his way to the table. He sees a '
+                      'young, decent-looking man sitting alone at a large '
+                      'table, with drugs in plain view. Bottles of alcohol '
+                      'sit neatly arranged in the center of the table, some '
+                      'opened, some empty, but mostly sealed. Thatcher '
+                      'steps into the booth and the music volume instantly '
+                      'lowers. The man looks up with curiosity. --\n'
+                      '\n',
+                  style: kTextNarration,
+                ),
+              ],
+            ),
+            textAlign: TextAlign.left,
+          ),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [27]), // 26 >> 27
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Container(
+              child: Text(
+                  '-- Michael looks at Thatcher with knowing bemusement. He '
+                  'immediately begins speaking, slow and '
+                  'melodramatically as if to make clear that he is not '
+                  'at all afraid of Thatcher. --\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardRight(
+                convoText: 'What can I do for you, Mr. Investigator?'),
+            ConvoCardLeft(convoText: 'Smart kid. Good, saves a lot of time.'),
+            ConvoCardRight(
+                convoText: 'Kid? So you\'re just another old man '
+                    'here to tell me what to do. Did the Guild send you?'),
+            ConvoCardLeft(
+                convoText: 'Not interested in your shit, kid. Where were you '
+                    'when Spire 17 was breached?'),
+            ConvoCardRight(
+                convoText: 'Ooh, looks like you\'re a smart kid, too.'),
+            Container(
+              child: Text(
+                  '\n-- Thatcher pounds his fist on the table, but Michael only'
+                  ' looks at him with fascination, almost daring him to '
+                  'act. --\n\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(convoText: 'Answer the question.'),
+            ConvoCardRight(
+                convoText: 'I was here, watching on the screen. '
+                    'Let me show you.'),
+            Container(
+              child: Text(
+                  '\n-- Michael presses a finger on a raised circle Thatcher '
+                  'hadn\'t noticed on the table. Nothing happens. '
+                  'Thatcher looks at him with growing impatience, and '
+                  'Michael points up. Above his head, Thatcher sees a '
+                  'paper-thin screen sliding downward out of the '
+                  'ceiling. --\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardLeft(
+                convoText: 'Neat trick, but C-Max can\'t change '
+                    'without a Mason.'),
+            ConvoCardRight(convoText: 'Why don\'t you try, then?'),
+            Container(
+                child: Text(
+                    '\n-- Michael raises his hands and gestures to the raised '
+                    'button on the table. '
+                    'Thatcher leans in and pushes it, while twisting to see the'
+                    ' screen. Without a sound, it slides back up into the '
+                    'ceiling and disappears. Thatcher looks at Michael\'s '
+                    'hands, which are still raised. --\n',
+                    style: kTextNarration)),
+            ConvoCardRight(convoText: 'You see? I\'m not touching anything.'),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [28]), // 27 >> 28
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            ConvoCardLeft(convoText: 'Are you testing me?'),
+            ConvoCardRight(
+                convoText: 'I\'m starting to like you, Mr. Investigator.'),
+            ConvoCardLeft(
+                convoText: 'So you can break the rules. Why show me'
+                    ' this?'),
+            ConvoCardRight(convoText: 'I think you already know the answer.'),
+            ConvoCardLeft(convoText: 'You can break the other rules, too.'),
+            ConvoCardRight(
+                convoText: 'Well, not me. I only break this rule, and only in'
+                    ' private. Plus I\'d never kill all those innocent people'
+                    '.'),
+            ConvoCardLeft(
+                convoText: 'You wouldn\'t be the first murderer to claim '
+                    'innocence.'),
+            ConvoCardRight(
+                convoText: 'I am trying to help, you know. This is'
+                    ' the only rule I can break with C-Max.'),
+            ConvoCardLeft(
+                convoText: 'So you say. Sitting in an illegal club, with a '
+                    'pile of drugs between us, it\'s hard to find trust.'),
+            ConvoCardRight(
+                convoText: 'Fair enough. You\'re on the right '
+                    'track, Mr. Investigator. A Mason was surely the one who '
+                    'cracked the Spire and let the Blight in.'),
+            ConvoCardLeft(convoText: 'Which one?'),
+            ConvoCardRight(
+                convoText: 'Who can say? Oh! I just had another '
+                    'thought: Why do you care, anyway? Your people already told '
+                    'us the "right" version of events. That means...this is your '
+                    'own investigation! How exciting! Hmm...something '
+                    'personal, very serious. You knew someone on that Spire, '
+                    'didn\'t you?'),
+            Container(
+              child: Text(
+                  '\n-- Thatcher\'s gaze never wavers, despite Michael\'s '
+                  'taunting. Faced with a choice, he weighs '
+                  'whether to threaten Michael with exposure for illegal '
+                  'activities, or simply to tell him the truth. --\n',
+                  style: kTextNarration),
+            ),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['The Truth', 'Threaten'],
+      nextPageID: [29, 29]), // 28 >> 29, XX
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text('-- Thatcher decides to tell Michael the truth. --\n',
+                style: kTextNarration),
+            ConvoCardLeft(
+                convoText: 'My son was on Spire 17. He was a doctor'
+                    ' there.'),
+            Text(
+                '\n-- For a brief moment, Michael\'s face shows genuine '
+                'sadness. His features become firm, and he sits up for the '
+                'first time. --\n',
+                style: kTextNarration),
+            ConvoCardRight(
+                convoText: 'I\'m sorry for your loss. You know, we Masons vow'
+                    ' never to have children. More and more, I wish I had '
+                    'taken a different path.'),
+            ConvoCardLeft(
+                convoText: 'Is that why you make a mockery of the Guild\'s '
+                    'rules?'),
+            ConvoCardRight(
+                convoText: 'One of many reasons. It\'s also a lot '
+                    'of fun.'),
+            ConvoCardLeft(convoText: 'Alright, can you help?'),
+            ConvoCardRight(
+                convoText: 'My gut says that only Jeremiah could figure out '
+                    'how to access the outer shell.'),
+            ConvoCardLeft(convoText: 'What do you mean, access?'),
+            ConvoCardRight(
+                convoText: 'It\'s hard to explain how C-Max works, but the '
+                    'biggest obstacle to using it is gaining access to it. '
+                    'That is what separates the children who can be Masons. '
+                    'We have to figure out how to access it without help.'),
+            ConvoCardLeft(convoText: 'And once you have access...'),
+            ConvoCardRight(
+                convoText: 'The Guild trains us. But the outer shell is '
+                    'different; no one has ever been able to access it before'
+                    '. It\'s got a different set of rules, almost like a '
+                    'different, ancient language.'),
+            ConvoCardLeft(convoText: 'But you think Jeremiah could do it?'),
+            ConvoCardRight(
+                convoText: 'If anyone could, it would be him. He\'s a genius '
+                    'among geniuses. Makes the rest of us look like children,'
+                    ' really.'),
+            ConvoCardLeft(convoText: 'Why would he do it?'),
+            ConvoCardRight(
+                convoText: 'I have no idea why anyone would do it, I just '
+                    'think that Jeremiah could do it.'),
+            ConvoCardLeft(convoText: 'What about Ricardo?'),
+            Container(
+              child: Text(
+                  '\n-- Michael flinches at the name. His gaze wavers and he '
+                  'looks down at the table for a moment. He quickly looks up,'
+                  ' but his face is now intense and resolute. --\n',
+                  style: kTextNarration),
+            ),
+            ConvoCardRight(
+                convoText: 'No, he would never risk his own safety.'),
+            ConvoCardLeft(
+                convoText: 'You emphasized "own", what do you mean '
+                    'by that?'),
+            ConvoCardRight(
+                convoText: '...nothing. It wasn\'t him, you just have to '
+                    'trust me.'),
+            Container(
+              child: Text(
+                  '\n-- Michael is visibly uncomfortable, but Thatcher does '
+                  'believe him. Still, he could pull at this thread and '
+                  'see what comes loose, or ask about Benjamin, the last '
+                  'Mason. --\n',
+                  style: kTextNarration),
+            ),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Pull the Thread', 'Benjamin'],
+      nextPageID: [30, 30]), // 29 >> 30, XX
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text(
+                '-- Thatcher decides to dig deeper into Michael and Ricardo'
+                '\'s relationship. Michael shifts uncomfortably in Thatcher'
+                '\'s silence, as if knowing the next question will be '
+                'difficult for him. --'
+                '\n',
+                style: kTextNarration),
+            ConvoCardLeft(convoText: 'What\'s the deal with you two?'),
+            ConvoCardRight(
+                convoText: 'He treated me horribly as an apprentice. Nothing '
+                    'I did was ever right or good enough. He tried to mold me'
+                    ' into a copy of himself, and when that didn\'t work, he'
+                    '...'),
+            Text(
+                '-- Michael trails off and closes his eyes, attempting to '
+                'regain his composure. Though slight, Thatcher notices that '
+                'his posture slumps. He now looks weak and defensive. '
+                'Thatcher knows this look. --',
+                style: kTextNarration),
+            ConvoCardLeft(convoText: 'He beat you.'),
+            ConvoCardRight(
+                convoText: 'Y--yeah. That\'s how it started, anyway. Over '
+                    'time, he got more creative. He starved me, isolated me, '
+                    'and when even that wasn\'t enough anymore, he found new '
+                    'ways to satisfy his desires.'),
+            ConvoCardLeft(convoText: 'No words, Michael. That\'s not right.'),
+            ConvoCardRight(
+                convoText: 'No one knew. When I finally became my own Mason, '
+                    'he just dumped me into the world he kept me from for so '
+                    'long. I had no idea how to behave.'),
+            ConvoCardLeft(convoText: 'Can you prove any of this?'),
+            ConvoCardRight(
+                convoText: 'What\'s the point? Even if I could, he\'s a Mason'
+                    '. He\'s untouchable.'),
+            Text(
+                '-- Thatcher thinks carefully about his next move, but '
+                'decides that he has a moral obligation to tell Michael '
+                'something he knows will hurt. --',
+                style: kTextNarration),
+            ConvoCardLeft(
+                convoText: 'Listen, you need to go public with this'
+                    '.'),
+            ConvoCardRight(
+                convoText: 'The Guild would never let me. Ernesto is gone, '
+                    'one of us killed a whole Spire, and you want me to knock'
+                    ' the shining light of the Guild off his pedestal? '
+                    'Everything would fall apart.'),
+            ConvoCardLeft(
+                convoText: 'Then tell the Guild as soon as you can.'
+                    ' Do it quietly, just do it soon.'),
+            ConvoCardRight(convoText: 'Why? Why are you pushing this?'),
+            ConvoCardLeft(
+                convoText: 'Because the Guild just approved Ricardo'
+                    ' to train a new apprentice. Ernesto needs to be rep--'),
+            Text(
+                '-- Michael shoots to his feet, both hands on the table. His '
+                'eyes are filled with fear-tinged fury. --',
+                style: kTextNarration),
+            ConvoCardRight(convoText: 'What!? No, that--no!'),
+            Text(
+                '-- Michael bolts out of the booth and into the booming music'
+                '. In his haste, he pushes patrons out of his way and '
+                'disappears down the staircase. Thatcher sits a bit '
+                'longer, hoping he made the right choice. --',
+                style: kTextNarration),
+            Text(
+                'Well, at least he will do something. Hopefully spare '
+                'another kid from that horrible fate.\n\n',
+                style: kTextBody),
+            Container(
+              child: Text(
+                  '\n-- Thatcher vows in his own mind that he will pursue '
+                  'this matter after he finds the killer of Spire 17. The'
+                  ' only thing to do now is find the dealer he promised '
+                  'to identify. --\n',
+                  style: kTextNarration),
+            ),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Continue'],
+      nextPageID: [31]), // 30 >> 31
+  //endregion
+  //region D's Anger
+  //endregion
   StoryPage(
       pageContents: [
         Container(
@@ -1122,7 +1836,7 @@ List<StoryPage> _storyData = [
 class StoryBrain {
   Box prefsBox = Hive.box("preferences");
   Box userSavedBox = Hive.box("userSave");
-  int _pageIndex = 18;
+  int _pageIndex = 30;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
   Set<String> _userSituations = userSave.getSituations();
