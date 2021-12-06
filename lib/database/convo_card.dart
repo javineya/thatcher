@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../resources/constants.dart';
+import '../constants/constants.dart';
 
 class ConvoCardLeft extends StatelessWidget {
   final String convoText;

@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:hive_flutter/adapters.dart';
 import './config/story_brain.dart';
-import 'resources/constants.dart';
+import 'constants/constants.dart';
 import './config/config.dart';
 
 // TODO: add choice-tracking feature

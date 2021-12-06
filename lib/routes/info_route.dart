@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../resources/constants.dart';
+import '../constants/constants.dart';
 
 // TODO: decide if this is necessary / what to put here
 
