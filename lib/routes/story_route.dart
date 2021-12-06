@@ -194,96 +194,84 @@ class _StoryRouteState extends State<StoryRoute> {
           : null,
       //endregion
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
-        constraints: BoxConstraints.expand(),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            controller: _scrollController,
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(storyBrain.getLocation()),
-                      Text(storyBrain.getArcTitle()),
-                      Text(''),
-                    ],
-                  ),
-                ), // InfoBar
-                Divider(),
-                Container(
-                  // STORYPAGE
-                  child: Column(
-                    children: List.generate(
-                      storyBrain.getPageContents().length,
-                      (index) {
-                        List pageContents = storyBrain.getPageContents();
-                        return pageContents[index];
-                      },
-                    ),
-                  ),
-                ), // StoryPage
-                Divider(),
-                Container(
-                  height: 250.0,
-                  alignment: userHand.getHand() == true
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Directionality(
-                    textDirection: userHand.getHand() == true
-                        ? TextDirection.rtl
-                        : TextDirection.ltr,
-                    child: GridView.count(
-                      physics: NeverScrollableScrollPhysics(),
-                      childAspectRatio: (5 / 2),
-                      padding: const EdgeInsets.all(20),
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 2,
-                      children: List.generate(
-                        storyBrain.getChoices().length,
-                        (index) {
-                          List choices = storyBrain.getChoices();
-                          List pageIDs = storyBrain.getPageIDs();
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(storyBrain.getLocation()),
+                  Text(storyBrain.getArcTitle()),
+                  Text(''),
+                ],
+              ),
+            ), // InfoBar
+            Divider(),
+            Container(
+              // STORYPAGE
+              child: Column(
+                children: List.generate(
+                  storyBrain.getPageContents().length,
+                  (index) {
+                    List pageContents = storyBrain.getPageContents();
+                    return pageContents[index];
+                  },
+                ),
+              ),
+            ), // StoryPage
+            Divider(),
+            Container(
+              height: 250.0,
+              alignment: userHand.getHand() == true
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              child: Directionality(
+                textDirection: userHand.getHand() == true
+                    ? TextDirection.rtl
+                    : TextDirection.ltr,
+                child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  childAspectRatio: (5 / 2),
+                  padding: const EdgeInsets.all(20),
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                  crossAxisCount: 2,
+                  children: List.generate(
+                    storyBrain.getChoices().length,
+                    (index) {
+                      List choices = storyBrain.getChoices();
+                      List pageIDs = storyBrain.getPageIDs();
 
-                          return Container(
-                            alignment: Alignment.center,
-                            child: TextButton(
-                              // TODO: add styling for previous choices
-                              child: Text(
-                                choices[index],
-                                style:
-                                    storyBrain.colorChoices(pageIDs[index]) ==
-                                            true
-                                        ? kTextChosen
-                                        : kTextUnchosen,
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () {
-                                    _scrollController.animateTo(
-                                        _scrollController
-                                            .position.minScrollExtent,
-                                        duration: Duration(milliseconds: 100),
-                                        curve: Curves.fastOutSlowIn);
-                                    storyBrain.turnPage(index);
-                                  },
-                                );
+                      return Container(
+                        alignment: Alignment.center,
+                        child: TextButton(
+                          // TODO: add styling for previous choices
+                          child: Text(
+                            choices[index],
+                            style:
+                                storyBrain.colorChoices(pageIDs[index]) == true
+                                    ? kTextChosen
+                                    : kTextUnchosen,
+                          ),
+                          onPressed: () {
+                            setState(
+                              () {
+                                _scrollController.animateTo(
+                                    _scrollController.position.minScrollExtent,
+                                    duration: Duration(milliseconds: 100),
+                                    curve: Curves.fastOutSlowIn);
+                                storyBrain.turnPage(index);
                               },
-                            ),
-                          );
-                        },
-                      ),
-                    ),
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
-                ), // Choices
-              ],
-            ),
-          ),
+                ),
+              ),
+            ), // Choices
+          ],
         ),
       ),
     );

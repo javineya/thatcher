@@ -6,33 +6,43 @@ import '../config/config.dart';
 StoryBrain storyBrain = StoryBrain();
 
 class RecapRoute extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                children: storyBrain.getRecapContents(),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: userHand.getHand() == true
-                  ? MainAxisAlignment.end
-                  : MainAxisAlignment.start,
+        padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
+        constraints: BoxConstraints.expand(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(width: 40),
-                TextButton(
-                    child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-                SizedBox(width: 40),
+                SizedBox(height: 40),
+                Expanded(
+                  child: PageView(
+                    children: storyBrain.getRecapContents(),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: userHand.getHand() == true
+                      ? MainAxisAlignment.end
+                      : MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: 40),
+                    TextButton(
+                        child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
+                    SizedBox(width: 40),
+                  ],
+                ),
+                SizedBox(height: 16)
               ],
             ),
-            SizedBox(height: 16)
-          ],
+          ),
         ),
       ),
     );
