@@ -9,7 +9,6 @@ class StoryPage {
   final String? addSituation;
   final String? checkSituation;
 
-  // arguments must be inside {} because they are named arguments
   StoryPage(
       {required this.pageContents,
       required this.arcTitle,
