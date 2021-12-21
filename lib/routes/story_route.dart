@@ -70,7 +70,8 @@ class _StoryRouteState extends State<StoryRoute> {
                   title: Text('Warning!', textAlign: TextAlign.center),
                   content: Text(
                       'This will restart your current\n'
-                      'story and erase the recap.',
+                      'story and erase the current recap. \n'
+                      'It will not erase pages visited.',
                       textAlign: TextAlign.center),
                   actions: <Widget>[
                     TextButton(
@@ -142,7 +143,7 @@ class _StoryRouteState extends State<StoryRoute> {
                                 _scrollController.position.minScrollExtent,
                                 duration: Duration(milliseconds: 100),
                                 curve: Curves.fastOutSlowIn);
-                            storyBrain.deleteAll();
+                            userSave.resetAll();
                           },
                         );
                         Navigator.pop(context, 'Erase');
@@ -194,84 +195,93 @@ class _StoryRouteState extends State<StoryRoute> {
           : null,
       //endregion
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(storyBrain.getLocation()),
-                  Text(storyBrain.getArcTitle()),
-                  Text(''),
-                ],
-              ),
-            ), // InfoBar
-            Divider(),
-            Container(
-              // STORYPAGE
-              child: Column(
-                children: List.generate(
-                  storyBrain.getPageContents().length,
-                  (index) {
-                    List pageContents = storyBrain.getPageContents();
-                    return pageContents[index];
-                  },
-                ),
-              ),
-            ), // StoryPage
-            Divider(),
-            Container(
-              height: 250.0,
-              alignment: userHand.getHand() == true
-                  ? Alignment.centerRight
-                  : Alignment.centerLeft,
-              child: Directionality(
-                textDirection: userHand.getHand() == true
-                    ? TextDirection.rtl
-                    : TextDirection.ltr,
-                child: GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: (5 / 2),
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                  crossAxisCount: 2,
-                  children: List.generate(
-                    storyBrain.getChoices().length,
-                    (index) {
-                      List choices = storyBrain.getChoices();
-                      List pageIDs = storyBrain.getPageIDs();
-
-                      return Container(
-                        alignment: Alignment.center,
-                        child: TextButton(
-                          // TODO: add styling for previous choices
-                          child: Text(
-                            choices[index],
-                            style:
-                                storyBrain.colorChoices(pageIDs[index]) == true
-                                    ? kTextChosen
-                                    : kTextUnchosen,
-                          ),
-                          onPressed: () {
-                            setState(
-                              () {
-                                _scrollController.animateTo(
-                                    _scrollController.position.minScrollExtent,
-                                    duration: Duration(milliseconds: 100),
-                                    curve: Curves.fastOutSlowIn);
-                                storyBrain.turnPage(index);
-                              },
-                            );
-                          },
-                        ),
-                      );
-                    },
+        padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
+        constraints: BoxConstraints.expand(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(storyBrain.getLocation()),
+                      Text(storyBrain.getArcTitle()),
+                      Text(''),
+                    ],
                   ),
-                ),
-              ),
-            ), // Choices
-          ],
+                ), // InfoBar
+                Divider(),
+                Container(
+                  // STORYPAGE
+                  child: Column(
+                    children: List.generate(
+                      storyBrain.getPageContents().length,
+                      (index) {
+                        List pageContents = storyBrain.getPageContents();
+                        return pageContents[index];
+                      },
+                    ),
+                  ),
+                ), // StoryPage
+                Divider(),
+                Container(
+                  height: 250.0,
+                  alignment: userHand.getHand() == true
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
+                  child: Directionality(
+                    textDirection: userHand.getHand() == true
+                        ? TextDirection.rtl
+                        : TextDirection.ltr,
+                    child: GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      childAspectRatio: (5 / 2),
+                      padding: const EdgeInsets.all(20),
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                        storyBrain.getChoices().length,
+                        (index) {
+                          List choices = storyBrain.getChoices();
+                          List pageIDs = storyBrain.getPageIDs();
+
+                          return Container(
+                            alignment: Alignment.center,
+                            child: TextButton(
+                              child: Text(
+                                choices[index],
+                                style:
+                                    storyBrain.colorChoices(pageIDs[index]) ==
+                                            true
+                                        ? kTextChosen
+                                        : kTextUnchosen,
+                              ),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    _scrollController.animateTo(
+                                        _scrollController
+                                            .position.minScrollExtent,
+                                        duration: Duration(milliseconds: 100),
+                                        curve: Curves.fastOutSlowIn);
+                                    storyBrain.turnPage(index);
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ), // Choices
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:thatcher/constants/constants.dart';
 import '../database/story_page.dart';
 import '../database/convo_card.dart';
 import '../config/config.dart';
 
 // TODO implement repeat dead-end protection feature
-// TODO FIX RECAP SCROLL OVERFLOW
+// TODO fix Hive issues -- pulling from different places
 
 //region STORY DATA
 List<StoryPage> _storyData = [
@@ -571,7 +569,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['Michael'],
     addSituation: "restart",
     checkSituation: "restart",
@@ -599,7 +596,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['The Urn', 'The Degree', 'The Award', 'The Guitar'],
     nextPageID: [13, 14, 15, 16],
   ), // 12 >> 13,14,15,16
@@ -666,7 +662,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['Wait for Theo', 'The Degree', 'The Award', 'The Guitar'],
     nextPageID: [5, 14, 15, 16],
   ), // Urn     13 >> 5,14,15,16
@@ -758,7 +753,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['The Urn', 'Wait for Theo', 'The Award', 'The Guitar'],
     nextPageID: [13, 5, 15, 16],
   ), // Degree  14 >> 13,5,15,16
@@ -841,7 +835,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['The Urn', 'The Degree', 'Wait for Theo', 'The Guitar'],
     nextPageID: [13, 14, 5, 16],
   ), // Award   15 >> 13,14,5,16
@@ -880,7 +873,6 @@ List<StoryPage> _storyData = [
         ),
       )
     ],
-    // TODO add arcs here as they are created
     choices: ['The Urn', 'The Degree', 'The Award', 'Wait for Theo'],
     nextPageID: [13, 14, 15, 5],
   ), // Guitar  16 >> 13,14,15,
@@ -1679,8 +1671,6 @@ List<StoryPage> _storyData = [
 //endregion
 
 class StoryBrain {
-  Box prefsBox = Hive.box("preferences");
-  Box userSavedBox = Hive.box("userSave");
   int _pageIndex = 30;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
@@ -1750,7 +1740,7 @@ class StoryBrain {
 
   List<Widget> getRecapContents() {
     List<Widget> recapContents = [];
-    List storyRecap = userSavedBox.get("recap") ?? [0];
+    List storyRecap = _storyRecap.toList();
     storyRecap.toList();
 
     int length = storyRecap.length;
@@ -1758,9 +1748,10 @@ class StoryBrain {
       int recapIndex = storyRecap[i];
       Container page = Container(
         alignment: Alignment.center,
-        child: getRecapPage(recapIndex),
+        child: SingleChildScrollView(child: getRecapPage(recapIndex)),
       );
       recapContents.add(page);
+      print("recap: $storyRecap");
     }
 
     return recapContents;
@@ -1786,7 +1777,7 @@ class StoryBrain {
       return _userLibrary.contains(pageID);
     }
   }
-  //endregion METHODS
+  //endregion PAGEVIEW METHODS
 
   //region GAME METHODS
   void saveGame() {
@@ -1800,13 +1791,13 @@ class StoryBrain {
 
   void restartGame() {
     _userSituations = {};
-    userSavedBox.put("recap", [0]);
     _storyRecap = {0};
+    userSave.setRecap(_storyRecap.toList());
     _pageIndex = 0;
   }
 
-  void deleteAll() {
-    userSavedBox.clear();
+  void resetAll() {
+    userSave.resetAll();
   }
 
   void addSituation() {

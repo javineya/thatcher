@@ -12,37 +12,32 @@ class RecapRoute extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
-        constraints: BoxConstraints.expand(),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 40),
+            Expanded(
+              child: PageView(
+                children: storyBrain.getRecapContents(),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: userHand.getHand() == true
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
               children: [
-                SizedBox(height: 40),
-                Expanded(
-                  child: PageView(
-                    children: storyBrain.getRecapContents(),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: userHand.getHand() == true
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 40),
-                    TextButton(
-                        child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
-                    SizedBox(width: 40),
-                  ],
-                ),
-                SizedBox(height: 16)
+                SizedBox(width: 40),
+                TextButton(
+                    child: FaIcon(FontAwesomeIcons.arrowLeft, size: 60),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
+                SizedBox(width: 40),
               ],
             ),
-          ),
+            SizedBox(height: 16)
+          ],
         ),
       ),
     );

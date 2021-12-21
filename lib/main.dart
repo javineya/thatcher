@@ -7,9 +7,6 @@ import './config/story_brain.dart';
 import 'constants/constants.dart';
 import './config/config.dart';
 
-// TODO: add choice-tracking feature
-// TODO: tackle the story data, finally
-
 StoryBrain storyBrain = StoryBrain();
 
 void main() async {

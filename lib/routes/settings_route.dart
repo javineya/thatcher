@@ -13,7 +13,6 @@ class SettingsRoute extends StatefulWidget {
 }
 
 class _SettingsRouteState extends State<SettingsRoute> {
-  // TODO: refactor to use global variables instead of local
   StoryBrain storyBrain = StoryBrain();
   bool _rightHandedUser = true;
   bool _darkMode = true;
