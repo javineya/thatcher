@@ -143,7 +143,7 @@ class _StoryRouteState extends State<StoryRoute> {
                                 _scrollController.position.minScrollExtent,
                                 duration: Duration(milliseconds: 100),
                                 curve: Curves.fastOutSlowIn);
-                            userSave.resetAll();
+                            storyBrain.resetAll();
                           },
                         );
                         Navigator.pop(context, 'Erase');

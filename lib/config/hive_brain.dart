@@ -5,9 +5,6 @@ import 'package:hive_flutter/adapters.dart';
 Box _prefsBox = Hive.box("preferences");
 Box _userSave = Hive.box("userSave");
 
-// TODO fix the recap, since you broke it...
-// TODO fix the full reset button, since you broke it, too...
-
 class MyTheme with ChangeNotifier {
   void setTheme(bool isDark) {
     _prefsBox.put("darkMode", isDark);
@@ -53,18 +50,14 @@ class UserSave {
     _userSave.put("situations", situations);
   }
 
-  Set<String> getSituations() {
-    List<String> situations = _userSave.get("situations") ?? [];
+  Set getSituations() {
+    List situations = _userSave.get("situations") ?? [];
     return situations.toSet();
   }
 
   void resetAll() {
-    print('resetAll fired!');
     _userSave.put("situations", []);
-    print('Situations: ${_userSave.get("situations")}');
     _userSave.put("recap", [0]);
-    print('Recap: ${_userSave.get("recap")}');
     _userSave.put("library", [0]);
-    print('Library: ${_userSave.get("library")}');
   }
 }

@@ -82,20 +82,18 @@ class _SettingsRouteState extends State<SettingsRoute> {
                 ),
               ],
               onPressed: (int index) {
-                setState(
-                  () {
-                    for (int buttonIndex = 0;
-                        buttonIndex < _isSelectedHand.length;
-                        buttonIndex++) {
-                      buttonIndex == index
-                          ? _isSelectedHand[buttonIndex] = true
-                          : _isSelectedHand[buttonIndex] = false;
-                    }
-                    _isSelectedHand[0] == true
-                        ? userHand.setHand(false)
-                        : userHand.setHand(true);
-                  },
-                );
+                setState(() {
+                  for (int buttonIndex = 0;
+                      buttonIndex < _isSelectedHand.length;
+                      buttonIndex++) {
+                    buttonIndex == index
+                        ? _isSelectedHand[buttonIndex] = true
+                        : _isSelectedHand[buttonIndex] = false;
+                  }
+                  _isSelectedHand[0] == true
+                      ? userHand.setHand(false)
+                      : userHand.setHand(true);
+                });
               },
               isSelected: _isSelectedHand,
             ), // UserHand

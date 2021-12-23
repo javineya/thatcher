@@ -5,7 +5,6 @@ import '../database/convo_card.dart';
 import '../config/config.dart';
 
 // TODO implement repeat dead-end protection feature
-// TODO fix Hive issues -- pulling from different places
 
 //region STORY DATA
 List<StoryPage> _storyData = [
@@ -1674,7 +1673,7 @@ class StoryBrain {
   int _pageIndex = 30;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
-  Set<String> _userSituations = userSave.getSituations();
+  Set _userSituations = userSave.getSituations();
 
   //region INFOBAR METHODS
   String getLocation() {
@@ -1798,6 +1797,8 @@ class StoryBrain {
 
   void resetAll() {
     userSave.resetAll();
+    _userLibrary = userSave.getLibrary();
+    _pageIndex = 0;
   }
 
   void addSituation() {
