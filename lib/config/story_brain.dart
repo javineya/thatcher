@@ -1389,8 +1389,8 @@ List<StoryPage> _storyData = [
             Container(
               child: Text(
                   '\n-- Thatcher pounds his fist on the table, but Michael only'
-                  ' looks at him with fascination, almost daring him to '
-                  'act. --\n\n',
+                  ' looks at him with amusement, knowing his status as a '
+                  'Mason makes him untouchable. --\n\n',
                   style: kTextNarration),
             ),
             ConvoCardLeft(convoText: 'Answer the question.'),
@@ -1433,9 +1433,10 @@ List<StoryPage> _storyData = [
         Container(
           alignment: Alignment.center,
           child: Column(children: [
-            ConvoCardLeft(convoText: 'Are you testing me?'),
+            ConvoCardLeft(convoText: 'The rules are lies?'),
             ConvoCardRight(
-                convoText: 'I\'m starting to like you, Mr. Investigator.'),
+                convoText: 'Clever! I\'m starting to like you, Mr. Investigator'
+                    '.'),
             ConvoCardLeft(
                 convoText: 'So you can break the rules. Why show me'
                     ' this?'),
@@ -1460,8 +1461,8 @@ List<StoryPage> _storyData = [
                     'cracked the Spire and let the Blight in.'),
             ConvoCardLeft(convoText: 'Which one?'),
             ConvoCardRight(
-                convoText: 'Who can say? Oh! I just had another '
-                    'thought: Why do you care, anyway? Your people already told '
+                convoText:
+                    'Oh! Why do you care, anyway? Your people already told '
                     'us the "right" version of events. That means...this is your '
                     'own investigation! How exciting! Hmm...something '
                     'personal, very serious. You knew someone on that Spire, '
@@ -1574,10 +1575,14 @@ List<StoryPage> _storyData = [
                 'difficult for him. --'
                 '\n',
                 style: kTextNarration),
-            ConvoCardLeft(convoText: 'What\'s the deal with you two?'),
+            ConvoCardLeft(
+                convoText: 'Okay, so he didn\'t do it, but you\'re '
+                    'still hiding something.'),
             ConvoCardRight(
-                convoText: 'He treated me horribly as an apprentice. Nothing '
-                    'I did was ever right or good enough. He tried to mold me'
+                convoText: 'I\'ve never hidden anything. It\'s just that no '
+                    'one ever asks. The Guild makes sure of it. \n\n He '
+                    'treated me horribly as an apprentice. Nothing '
+                    'I did was ever good enough. He tried to mold me'
                     ' into a copy of himself, and when that didn\'t work, he'
                     '...'),
             Text(
@@ -1586,17 +1591,17 @@ List<StoryPage> _storyData = [
                 'his posture slumps. He now looks weak and defensive. '
                 'Thatcher knows this look. --',
                 style: kTextNarration),
-            ConvoCardLeft(convoText: 'He beat you.'),
+            ConvoCardLeft(convoText: 'He tried to beat you into the mold.'),
             ConvoCardRight(
                 convoText: 'Y--yeah. That\'s how it started, anyway. Over '
                     'time, he got more creative. He starved me, isolated me, '
                     'and when even that wasn\'t enough anymore, he found new '
-                    'ways to satisfy his desires.'),
-            ConvoCardLeft(convoText: 'No words, Michael. That\'s not right.'),
+                    'ways to "shape" me.'),
+            ConvoCardLeft(convoText: 'Michael, that\'s not right.'),
             ConvoCardRight(
-                convoText: 'No one knew. When I finally became my own Mason, '
-                    'he just dumped me into the world he kept me from for so '
-                    'long. I had no idea how to behave.'),
+                convoText: 'And now you know the big reason I--how did you '
+                    'put it--make a mockery of the Guild\'s rules. They saw '
+                    'what he was doing, and they looked the other way.'),
             ConvoCardLeft(convoText: 'Can you prove any of this?'),
             ConvoCardRight(
                 convoText: 'What\'s the point? Even if I could, he\'s a Mason'
@@ -1638,10 +1643,9 @@ List<StoryPage> _storyData = [
                 style: kTextBody),
             Container(
               child: Text(
-                  '\n-- Thatcher vows in his own mind that he will pursue '
-                  'this matter after he finds the killer of Spire 17. The'
-                  ' only thing to do now is find the dealer he promised '
-                  'to identify. --\n',
+                  '\n-- Thatcher makes a mental note to pursue this '
+                  'matter after catching the Spire 17 killer. Now, he turns '
+                  'his mind toward finding the dealer he promised to D. --\n',
                   style: kTextNarration),
             ),
           ]),
