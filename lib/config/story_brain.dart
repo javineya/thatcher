@@ -5,10 +5,11 @@ import '../database/convo_card.dart';
 import '../config/config.dart';
 
 // TODO implement repeat dead-end protection feature
+// TODO - stop procrastinating and write!
 
 //region STORY DATA
 List<StoryPage> _storyData = [
-  //region Intro
+  //region INTRO - complete
   StoryPage(
     location: '',
     arcTitle: '',
@@ -32,7 +33,7 @@ List<StoryPage> _storyData = [
     addSituation: 'gameInProgress',
     checkSituation: 'gameInProgress',
     nextPageID: [1],
-  ), // 0 >> 1
+  ), // 0S >> 1
   StoryPage(
     location: '',
     arcTitle: 'Intro',
@@ -569,10 +570,8 @@ List<StoryPage> _storyData = [
       )
     ],
     choices: ['Michael'],
-    addSituation: "restart",
-    checkSituation: "restart",
-    nextPageID: [0],
-  ), // 11 >> ARCS
+    nextPageID: [17],
+  ), // 11 >> 17, XX, XX, XX
   StoryPage(
     location: '',
     arcTitle: 'Intro',
@@ -875,7 +874,7 @@ List<StoryPage> _storyData = [
     choices: ['The Urn', 'The Degree', 'The Award', 'Wait for Theo'],
     nextPageID: [13, 14, 15, 5],
   ), // Guitar  16 >> 13,14,15,
-  //endregion
+  //endregion -  - Complete
   //region MICHAEL
   StoryPage(
       pageContents: [
@@ -906,7 +905,7 @@ List<StoryPage> _storyData = [
       location: '',
       choices: ['Continue'],
       addSituation: 'visitedMichael',
-      nextPageID: [0]), // 17 >> 18
+      nextPageID: [18]), // 17 >> 18
   StoryPage(
       pageContents: [
         Container(
@@ -940,7 +939,7 @@ List<StoryPage> _storyData = [
       arcTitle: '',
       location: '',
       choices: ['Truth', 'Lie'],
-      nextPageID: [19, 19]), // 18 >> 19
+      nextPageID: [19, 19]), // 18 >> 19, XX
   StoryPage(
       pageContents: [
         Container(
@@ -1653,8 +1652,178 @@ List<StoryPage> _storyData = [
       ],
       arcTitle: '',
       location: '',
+      addSituation: 'newApprentice',
       choices: ['Continue'],
-      nextPageID: [31]), // 30 >> 31
+      nextPageID: [31]), // 30S >> 31
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text(
+                '-- Thatcher, sitting at the empty table, littered with '
+                'illegal drugs in plain sight, considers his next move. --',
+                style: kTextNarration),
+            Text(
+                'These drugs make a good target. Could just wait and see who '
+                'wanders in, probably catch a wealthy addict. Not gonna '
+                'help find the dealer, but they might know something. Or '
+                'find a way into that room where the stairs split.',
+                style: kTextBody),
+            Text(
+                '-- While Thatcher contemplates, an attractive young woman '
+                'confidently strides up to his table and sits down. --',
+                style: kTextNarration),
+            ConvoCardRight(convoText: 'Special Investigator Michelle Cabrera.'),
+            ConvoCardLeft(convoText: 'Thatcher.'),
+            ConvoCardRight(
+                convoText: 'No offense, but you\'re a little old to be '
+                    'running a sting in this club. I assume you\'re here for '
+                    'the new drug dealer.'),
+            ConvoCardLeft(
+                convoText: 'Not intentionally. Not interested, in '
+                    'fact, just doing a favor for access.'),
+            ConvoCardRight(convoText: 'Michael was the target?'),
+            ConvoCardLeft(
+                convoText: 'Maybe, but probably not. Got any info on the '
+                    'dealer? Just need a name.'),
+            ConvoCardRight(
+                convoText: 'Near as I can tell, the club is the dealer. I\'ve'
+                    ' been here for months, and the system is too tight to '
+                    'exist without management being involved.'),
+            ConvoCardLeft(convoText: 'Who\'s the manager?'),
+            ConvoCardRight(convoText: 'Guy named Robert Strait.'),
+            ConvoCardLeft(convoText: 'Who owns this club?'),
+            ConvoCardRight(
+                convoText: 'Even Strait doesn\'t know that. This '
+                    'club isn\'t a closely-guarded secret, but whoever is in '
+                    'charge of it is a ghost.'),
+            ConvoCardLeft(
+                convoText: 'Thanks, Cabrera. Garrett Thatcher owes '
+                    'you one. Gotta get out of here before your cover is blown.'),
+            ConvoCardRight(
+                convoText: 'Please, you were seen with Mason Michael. Even '
+                    'though you\'re clearly a Special Investigator, no one '
+                    'here is worried about you.'),
+            ConvoCardLeft(
+                convoText: 'He that bad? Explains the open table of'
+                    ' drugs. Keep up the good work, Cabrera.'),
+            Text(
+                '-- Thatcher has a name, and is pleased with how easy it was.'
+                ' But now comes the hard part: Does he tell D the truth, '
+                'knowing that Robert Strait will disappear, or does he '
+                'lie to her and put her threat to the test? --',
+                style: kTextNarration),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Truth', 'Lie'],
+      nextPageID: [32, 34]), // 31 >> 32, 34
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text('-- Thatcher decides to tell her the truth. --',
+                style: kTextNarration),
+            Text(
+                'Robert Strait may'
+                ' disappear, but what is one life compared to the lives '
+                'lost on Spire 17? Compared to Sean? May need to'
+                ' come back to Spire 12, and D could make that dangerous.'
+                ' Best not to piss her off.',
+                style: kTextBody),
+            Text(
+                '-- Soon as Thatcher leaves the bakery entrance--the same way '
+                'he came in--he is met by four serious-looking men. --',
+                style: kTextNarration),
+            ConvoCardLeft(convoText: 'Clearly D has trust issues.'),
+            ConvoCardRight(convoText: 'The name?'),
+            ConvoCardLeft(
+                convoText: 'Robert Strait. Tell her to be careful, boys. This'
+                    ' guy has the support of the club\'s owner, or owners. '
+                    'Might be a mess that isn\'t worth digging into.'),
+            ConvoCardRight(convoText: 'Not your problem.'),
+            Text(
+                '-- The men file out of the room, allowing Thatcher to leave.'
+                ' He heads back to the station to choose the next Mason '
+                'to investigate. --',
+                style: kTextNarration),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['The Masons'],
+      nextPageID: [33]), // 32 >> 33
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text(
+                '-- Before choosing his next destination, Thatcher considers '
+                'the other Masons. --',
+                style: kTextNarration),
+            Text(
+                'Would be nice to stop Ricardo from getting a new apprentice, '
+                'but proving '
+                'Michael\'s story will be difficult. Wonder if anyone '
+                'ever pushed Ricardo\'s buttons. Maybe get him to incriminate'
+                ' himself?\n\n'
+                'Michael said Jeremiah is the most likely culprit, so '
+                'following up there would be a good idea.\n\n'
+                'And there\'s still Benjamin. Odd that he wasn\'t around '
+                'for Ernesto\'s ceremony, given how close everyone says '
+                'they are.',
+                style: kTextBody),
+            Text('-- Thatcher makes his choice. --', style: kTextNarration),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      choices: ['Ricardo', 'Benjamin', 'Jeremiah'],
+      nextPageID: [0, 0, 0]), // 33 >> ARCS
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text('-- Thatcher decides to tell her a lie. --',
+                style: kTextNarration),
+            Text(
+                'Gotta think of someone untouchable. Could lay it at the feet'
+                ' of the owners of the club, but D might investigate and '
+                'get herself in trouble. Better or worse, she keeps this '
+                'spire stable.',
+                style: kTextBody),
+            Text(
+                '-- Soon as Thatcher leaves the bakery entrance--the same way '
+                'he came in--he is met by four serious-looking men. --',
+                style: kTextNarration),
+            ConvoCardLeft(convoText: 'Clearly D has trust issues.'),
+            ConvoCardRight(convoText: 'The name?'),
+            ConvoCardLeft(
+                convoText: 'Bad news, boys: The dealer is Michael, the Mason.'
+                    ' Tell D to leave it alone; messing with the Guild is '
+                    'punching way above her weight, no offense.'),
+            ConvoCardRight(convoText: 'Not your problem.'),
+            Text(
+                '-- The men file out of the room, allowing Thatcher to leave.'
+                ' He heads back to the station to choose the next Mason '
+                'to investigate. --',
+                style: kTextNarration),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      addSituation: 'romeroBusted',
+      choices: ['The Masons'],
+      nextPageID: [33]), // 34S >> 33
   //endregion
   //region D's Anger
   //endregion
@@ -1674,7 +1843,7 @@ List<StoryPage> _storyData = [
 //endregion
 
 class StoryBrain {
-  int _pageIndex = 30;
+  int _pageIndex = 31;
   Set<int> _storyRecap = userSave.getRecap();
   Set<int> _userLibrary = userSave.getLibrary();
   Set _userSituations = userSave.getSituations();
@@ -1712,6 +1881,7 @@ class StoryBrain {
   }
 
   int getSituationIndex(situation) {
+    print(_userSituations);
     switch (situation) {
       case "gameInProgress":
         {
