@@ -1561,7 +1561,7 @@ List<StoryPage> _storyData = [
       arcTitle: '',
       location: '',
       choices: ['Pull the Thread', 'Benjamin'],
-      nextPageID: [30, 30]), // 29 >> 30, XX
+      nextPageID: [30, 35]), // 29 >> 30, 35
   StoryPage(
       pageContents: [
         Container(
@@ -1792,13 +1792,14 @@ List<StoryPage> _storyData = [
         Container(
           alignment: Alignment.center,
           child: Column(children: [
-            Text('-- Thatcher decides to tell her a lie. --',
+            Text(
+                '-- Thatcher decides to tell her that it was Mason Michael. '
+                '--',
                 style: kTextNarration),
             Text(
-                'Gotta think of someone untouchable. Could lay it at the feet'
-                ' of the owners of the club, but D might investigate and '
-                'get herself in trouble. Better or worse, she keeps this '
-                'spire stable.',
+                'He is untouchable. Can\'t have D going and getting herself '
+                'in trouble with whoever is behind the club. Better or '
+                'worse, she keeps this Spire stable.',
                 style: kTextBody),
             Text(
                 '-- Soon as Thatcher leaves the bakery entrance--the same way '
@@ -1824,6 +1825,82 @@ List<StoryPage> _storyData = [
       addSituation: 'romeroBusted',
       choices: ['The Masons'],
       nextPageID: [33]), // 34S >> 33
+  StoryPage(
+      pageContents: [
+        Container(
+          alignment: Alignment.center,
+          child: Column(children: [
+            Text(
+                '-- Thatcher decides to stay focused on the case, and asks '
+                'about Benjamin. He puts up his hands to signal that he will '
+                'drop the issue. Michael\'s tension eases instantly, and he '
+                'regains his calm demeanor. --',
+                style: kTextNarration),
+            ConvoCardLeft(
+                convoText: 'As you wish. What about Benjamin? He '
+                    'wasn\'t at his mentor\'s ceremony. Strange, don\'t you think?'
+                    '.'),
+            ConvoCardRight(
+                convoText: 'Benjamin is the only part of the Guild'
+                    ' that I actually like. He is a genuinely good person, cares '
+                    'deeply for his work and the people he helps. And, above all '
+                    'else, he adored Mason Ernesto.'),
+            ConvoCardLeft(convoText: 'So why wasn\'t he there with him?'),
+            ConvoCardRight(
+                convoText: 'I don\'t know, honestly. We Masons don'
+                    '\'t interact much, so I can\'t give you much about his '
+                    'schedule. While it is odd that he wasn\'t there, I don\'t '
+                    'see any world where Benjamin would hurt Ernesto, let alone '
+                    'an entire Spire of innocent people.'),
+            ConvoCardLeft(
+                convoText: 'Okay. Gotta consider all this, but you have been '
+                    'unexpectedly helpful, Michael. One last thing: Where\'d '
+                    'you get the drugs?'),
+            ConvoCardRight(
+                convoText: 'Ah, I knew this would come up '
+                    'eventually. I will tell you everything I know about the '
+                    'Masons, but on this, I refuse.'),
+            ConvoCardLeft(
+                convoText: 'Gonna let you in on a secret, since you have told'
+                    ' me so much: The former dealer is asking the question, '
+                    'and if she doesn\'t get an answer, things will get '
+                    'violent.'),
+            ConvoCardRight(
+                convoText: 'At least that would be some excitement'
+                    '. I won\'t tell you who it is, but I won\'t let you walk '
+                    'away empty-handed, either. Tell Romero that I\'m the dealer.'
+                    ' She can\'t touch me. If she tries, I welcome the challenge.'),
+            ConvoCardLeft(
+                convoText: 'Only gonna warn you once: She is not to be '
+                    'underestimated. We let her run this Spire for a reason. '
+                    'She is tough, but fair. Since your Spire wants to be '
+                    'autonomous, she is the law here.'),
+            ConvoCardRight(
+                convoText: 'The Guild is the law, unfortunately. '
+                    'You\'ll need to be careful, or you will learn that the hard '
+                    'way, just as Romero will.'),
+            ConvoCardLeft(convoText: 'Thanks, Michael. '),
+            ConvoCardRight(
+                convoText: 'I hope you find the killer. If you '
+                    'need anything in the future, look me up.'),
+            Text(
+                '-- Thatcher leaves the table with a brief nod. He '
+                'considers the information he has gained as he walks '
+                'toward the exit. --',
+                style: kTextNarration),
+            Text(
+                'Michael is right about one thing: D will think twice about '
+                'coming after him. Pretty clever move, kid. Makes my life'
+                ' easier, too.',
+                style: kTextBody),
+          ]),
+        )
+      ],
+      arcTitle: '',
+      location: '',
+      addSituation: 'romeroBusted',
+      choices: ['The Masons'],
+      nextPageID: [33]), // 35 >> 36
   //endregion
   //region D's Anger
   //endregion
